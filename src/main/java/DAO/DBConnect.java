@@ -1,5 +1,4 @@
-package support;
-
+package DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,7 +6,7 @@ import java.sql.SQLException;
 public class DBConnect {
     public static Connection getConnection() {
         
-        final String url = "jdbc:mysql://localhost:3306/web";
+        final String url = "jdbc:mysql://localhost:3306/test";
         final String user = "root"; 
         final String password = "0728012004"; 
 
