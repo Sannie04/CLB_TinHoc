@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Dao.DAOcn;
 import model.SupportClass;
-
 
 
 /**
  * Servlet implementation class ListSupportServlet
  */
-// @WebServlet("/ListSupport") // xóa cái này
+@WebServlet("/listSupport")
 public class ListSupportServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -40,12 +40,9 @@ public class ListSupportServlet extends HttpServlet {
         // Gửi dữ liệu đến JSP
         request.setAttribute("listP", listP);
 
-
         // Chuyển tiếp đến JSP để hiển thị
         System.out.println("Đang chuyển tiếp đến JSP: ./supPort/menuSupPort.jsp");
         request.getRequestDispatcher("./supPort/menuSupPort.jsp").forward(request, response);
-
-
-
+        //response.sendRedirect("./supPort/menuSupPort.jsp");
     }
 }

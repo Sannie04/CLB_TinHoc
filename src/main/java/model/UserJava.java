@@ -1,4 +1,4 @@
-package support;
+package model;
 
 public class UserJava {
 	private int id;

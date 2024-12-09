@@ -6,110 +6,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang chủ</title>
-    <style>
-        body {
-            margin: 5px;
-            font-family: Arial, sans-serif;
-        }
-        nav {
-            background-color: #28a745;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 5px 0;
-            margin-top: 50px;
-            border-radius: 10px; 
-        }
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-            width: 95%;
-            margin: 0 auto; 
-            padding: 0;
-        }
-        nav .menu {
-            display: flex;
-            flex: 1;
-            justify-content: space-evenly; 
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 30px;
-        }
-        nav a:hover {
-            color: #ffd700; 
-        }
-        nav img {
-            display: block;
-            height: 80px;
-            margin: 0;
-            border-radius: 10px; 
-        }
-        nav .user-info-container {
-            display: flex;
-            align-items: center;
-            gap: 20px; /* Khoảng cách giữa avatar và logout */
-        }
-        nav .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px; /* Khoảng cách giữa ảnh và text */
-        }
-        nav .user-info img {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%; /* Avatar hình tròn */
-        }
-        nav .logout-link a {
-            color: white;
-            font-size: 20px;
-            text-decoration: none;
-        }
-        nav .logout-link a:hover {
-            color: #ffd700;
-        }
-    </style>
+    <!-- Liên kết tệp CSS -->
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/home.css">
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <div>
-                <img src="./images/logo2.png" alt="Logo">
+	<div class="container">
+            <%@ include file="header.jsp" %> 
+     </div>
+    <!-- Phần nội dung khác -->
+    <div class="info-section">
+        <div class="content-wrapper">
+            <!-- Left Column -->
+            <div class="left-column">
+                <h1>CLB Tin Học</h1>
+                <h2>Khoa Tin Học - UED</h2>
+                <img src="./images/home.png" alt="CLB Tin Học Logo" class="club-logo">
             </div>
-            <div class="menu">
-                <a href="Home.jsp">Home</a>
-                <a href="courses">Khóa học</a>
-                <a href="./supPort/menuSupPort.jsp">Support</a>
-                <a href="student">Sinh viên</a>
-                <a href="classes">Lớp Học</a>
-                <a href="results">Kết Quả</a>
-            </div>
-            <div>
-                <ul>
-                    <c:if test="${sessionScope.acc != null}">
-                        <li class="nav-item user-info-container">
-                            <div class="user-info">
-                                <img src="./images/logo2.png" 
-                                     alt="Avatar">
-                                <span>Hello ${sessionScope.acc.studentId}</span>
-                            </div>
-                            <div class="logout-link">
-                                <a href="logout">Logout</a>
-                            </div>
-                        </li>
-                    </c:if>
-                    <c:if test="${sessionScope.acc == null}">
-                        <li >
-                            <a href="login.jsp">Login</a>
-                        </li>
-                    </c:if>
-                </ul>
+            <!-- Right Column -->
+            <div class="right-column">
+                <h2>Trực thuộc khoa Tin Học - Trường Đại Học Sư Phạm Đà Nẵng</h2>
+                <p>
+                    Câu lạc bộ Tin học – CLBTH trực thuộc khoa Tin Học Trường ĐH Sư Phạm Đà Nẵng đã được thành lập và 
+                    chính thức đi vào hoạt động từ 04/10/2014.
+                </p>
+                <p>
+                    Sau 9 năm đi vào hoạt động và phát triển, từ một CLB nhỏ trong khoa. 
+                    Hiện nay CLB đã và đang ngày càng phát triển vững mạnh với đội ngũ hỗ trợ nhiệt huyết và năng động.
+                </p>
+                <p>
+                    CLB hiện đang đào tạo chính 2 bộ môn C++ và căn bản về Java, những kỹ năng cần thiết cho việc ra trường.
+                </p>
+                <p>
+                    Ngoài ra còn mở thêm một số lớp như Cơ sở dữ liệu, Cấu trúc dữ liệu và giải thuật,…
+                </p>
+                <p>
+                    CLB luôn mong muốn truyền tải và hướng đến tinh thần đồng đội, sự gắn bó và đoàn kết trong học tập.
+                </p>
             </div>
         </div>
-    </nav>
+    </div>
 </body>
 </html>

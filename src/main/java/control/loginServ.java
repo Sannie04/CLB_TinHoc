@@ -1,6 +1,7 @@
-package support;
+package control;
 
 import java.io.IOException;
+
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import support.DAOcn;
-import support.UserJava;
+import Dao.DAOcn;
+import model.UserJava;
 
 /**
  * Servlet implementation class loginServ

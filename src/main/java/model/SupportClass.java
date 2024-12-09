@@ -1,18 +1,12 @@
 package model;
 
 public class SupportClass {
-	private int id;
     private String maSupport;
     private String hoTen;
     private String diaChi;
+    private String LopSinhHoat;
     private String soDienThoai;
     private String email;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getMaSupport() {
 		return maSupport;
 	}
@@ -31,6 +25,12 @@ public class SupportClass {
 	public void setDiaChi(String diaChi) {
 		this.diaChi = diaChi;
 	}
+	public String getLopSinhHoat() {
+		return LopSinhHoat;
+	}
+	public void setLopSinhHoat(String LopSinhHoat) {
+		this.LopSinhHoat = LopSinhHoat;
+	}
 	public String getSoDienThoai() {
 		return soDienThoai;
 	}
@@ -43,12 +43,13 @@ public class SupportClass {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public SupportClass(int id, String maSupport, String hoTen, String diaChi, String soDienThoai, String email) {
+	public SupportClass(String maSupport, String hoTen, String diaChi, String LopSinhHoat, String soDienThoai,
+			String email) {
 		super();
-		this.id = id;
 		this.maSupport = maSupport;
 		this.hoTen = hoTen;
 		this.diaChi = diaChi;
+		this.LopSinhHoat = LopSinhHoat;
 		this.soDienThoai = soDienThoai;
 		this.email = email;
 	}
@@ -58,9 +59,9 @@ public class SupportClass {
 	}
 	@Override
 	public String toString() {
-		return "SupportClass [id=" + id + ", maSupport=" + maSupport + ", hoTen=" + hoTen + ", diaChi=" + diaChi
-				+ ", soDienThoai=" + soDienThoai + ", email=" + email + "]";
+		return "SupportClass [maSupport=" + maSupport + ", hoTen=" + hoTen + ", diaChi=" + diaChi + ", LopSinhHoat="
+				+ LopSinhHoat + ", soDienThoai=" + soDienThoai + ", email=" + email + "]";
 	}
-
+	
     
 }

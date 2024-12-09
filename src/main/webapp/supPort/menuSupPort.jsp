@@ -6,10 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-	<%
-	List<SupportClass> supportList = (List<SupportClass>) request.getAttribute("listP");
-
-	%>
+	
 <head>
     <meta charset="UTF-8">
     <title>Danh sách Support</title>
@@ -95,14 +92,22 @@
             font-size: 14px;
             margin: 0 5px;
         }
-        .btn-edit {
-            background-color: #ffc107;
-            color: black;
-        }
-        .btn-delete {
-            background-color: #dc3545;
-            color: white;
-        }
+        .btn-green {
+		    background-color: #28a745 !important; /* Thêm !important để ưu tiên */
+		    color: white !important;
+		    padding: 8px 15px;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    font-size: 14px;
+		    margin: 0 5px;
+		    text-align: center;
+		    text-decoration: none;
+		}
+		.btn-green:hover {
+		    background-color: #218838 !important; /* Đậm hơn khi hover */
+		}
+
     </style>
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -110,9 +115,8 @@
 </head>
 <body>
     <nav>
-    
         <div class="nav-left">
-            <a href="javascript:history.go(-1)">Quay lại</a>
+            <a href="Home.jsp">Home</a>
         </div>
         <h1>Danh sách Support</h1>
     </nav>
@@ -128,6 +132,7 @@
                     <th>Mã Support</th>
                     <th>Họ Tên</th>
                     <th>Địa Chỉ</th>
+                    <th>Lớp Học Phần</th>
                     <th>Số Điện Thoại</th>
                     <th>Email</th>
                     <th>Hành Động</th>
@@ -135,23 +140,45 @@
             </thead>
             
             <tbody>
-			    <c:forEach var="objSupport" items="${listP}">
-				    <tr>
-				        <td>${objSupport.maSupport}</td>
-				        <td>${objSupport.hoTen}</td>
-				        <td>${objSupport.diaChi}</td>
-				        <td>${objSupport.soDienThoai}</td>
-				        <td>${objSupport.email}</td>
-				        <td>
-				            <a href="editSupport?maSupport=${objSupport.maSupport}" class="btn btn-warning btn-sm">Cập nhật</a>
-				            <a href="deleteSupport?maSupport=${objSupport.maSupport}" class="btn btn-danger btn-sm">Xóa</a>
-				        </td>
-				    </tr>
-				</c:forEach>
+			    <%
+				if (request.getAttribute("listP") != null) {
+				    List<SupportClass> supportList = (List<SupportClass>) request.getAttribute("listP");
+				    if (supportList.size() > 0) {
+				        for (SupportClass objSupport : supportList) {
+				%>
+				<tr>
+				    <td><%= objSupport.getMaSupport() %></td>
+				    <td><%= objSupport.getHoTen() %></td>
+				    <td><%= objSupport.getDiaChi() %></td>
+				    <td><%= objSupport.getLopSinhHoat() %></td>
+				    <td><%= objSupport.getSoDienThoai() %></td>
+				    <td><%= objSupport.getEmail() %></td>
+				    <td>
+					    <a href="LoadEditSupport?maSupport=<%= objSupport.getMaSupport() %>" class="btn-green">Cập nhật</a>
+						<a href="deleteSupport?maSupport=<%= objSupport.getMaSupport() %>" class="btn-green">Xóa</a>
+
+					</td>
+
+				</tr>
+				<%
+				        }
+				    } else {
+				%>
+				<tr>
+				    <td colspan="6" style="text-align: center;">Không có dữ liệu</td>
+				</tr>
+				<%
+				    }
+				} else {
+				%>
+				<tr>
+				    <td colspan="6" style="text-align: center;">Dữ liệu không được tải</td>
+				</tr>
+				<%
+				}
+				%>
 
 			</tbody>
-
-            
         </table>
     </div>
     <!-- Modal Thêm Support -->
@@ -163,7 +190,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="AddSupportServlet" method="post">
+                    <form action="AddSupportServlet" method="post" accept-charset="UTF-8">
                         <div class="mb-3">
                             <label for="maSupport" class="form-label">Mã Support</label>
                             <input type="text" class="form-control" id="maSupport" name="maSupport" placeholder="Nhập mã support" required>
@@ -175,6 +202,10 @@
                         <div class="mb-3">
                             <label for="diaChi" class="form-label">Địa Chỉ</label>
                             <input type="text" class="form-control" id="diaChi" name="diaChi" placeholder="Nhập địa chỉ">
+                        </div>
+                        <div class="mb-3">
+                            <label for="LopSinhHoat" class="form-label">Chuyên Môn</label>
+                            <input type="text" class="form-control" id="LopSinhHoat" name="LopSinhHoat" placeholder="Nhập Lớp">
                         </div>
                         <div class="mb-3">
                             <label for="soDienThoai" class="form-label">Số Điện Thoại</label>

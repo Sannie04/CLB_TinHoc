@@ -1,4 +1,4 @@
-package support;
+package Dao;
 
 import java.sql.Connection;
 
@@ -9,10 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import Dao.DAOcn;
 import model.SupportClass;
-import support.DAOcn;
-import support.DBConnect;
-import support.UserJava;
+import model.UserJava;
 
 
 public class DAOcn{
@@ -141,10 +140,10 @@ public class DAOcn{
 	        // Lặp qua kết quả và thêm vào list
 	        while (result.next()) {
 	            userName.add(new SupportClass(
-	                result.getInt("id"),
 	                result.getString("maSupport"),
 	                result.getString("hoTen"),
 	                result.getString("diaChi"),
+	                result.getString("LopSinhHoat"),
 	                result.getString("soDienThoai"),
 	                result.getString("email")
 	            ));
@@ -182,10 +181,10 @@ public class DAOcn{
 				
 			while (result.next()) {
 				return new SupportClass(
-						result.getInt("id"),
 						result.getString("maSupport"),
 		                result.getString("hoTen"),
 		                result.getString("diaChi"),
+		                result.getString("LopSinhHoat"),
 		                result.getString("soDienThoai"),
 		                result.getString("email")
 		                );
@@ -195,13 +194,13 @@ public class DAOcn{
 		}
 		return null;
 	}
-	public void addSupport(String maSupport, String hoTen, String diaChi, String soDienThoai, String email){
+	public void addSupport(String maSupport, String hoTen, String diaChi,String LopSinhHoat, String soDienThoai, String email){
 		conn = DBConnect.getConnection();
 		//Doc du lieu tu Database luu vao List<Student>
 		//1. Khai bao List<student> de luu du lieu 
 		//List<UserJava> userName = new ArrayList<UserJava>();
-		String sql = "insert into Support (maSupport, hoTen, diaChi, soDienThoai, email)\n"
-				+ "values(?,?,?,?,?)\n";
+		String sql = "insert into Support (maSupport, hoTen, diaChi, LopSinhHoat, SoDienThoai, Email)\n"
+				+ "values(?,?,?,?,?,?)\n";
 		//3.Ket noi, truy van --> luu du lieu ve List Student
 		try {
 			
@@ -209,14 +208,84 @@ public class DAOcn{
 			stm.setString(1, maSupport);
 			stm.setString(2, hoTen);
 			stm.setString(3, diaChi);
-			stm.setString(4, soDienThoai);
-			stm.setString(5, email);
+			stm.setString(4, LopSinhHoat);
+			stm.setString(5, soDienThoai);
+			stm.setString(6, email);
+			stm.executeUpdate();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void delete(String maSupport){
+		conn = DBConnect.getConnection();
+		//Doc du lieu tu Database luu vao List<Student>
+		//1. Khai bao List<student> de luu du lieu 
+		//List<UserJava> userName = new ArrayList<UserJava>();
+		String sql = "delete from Support\n"
+				+ "where maSupport = ?";
+		//3.Ket noi, truy van --> luu du lieu ve List Student
+		try {
+			stm = conn.prepareStatement(sql);
+			stm.setString(1, maSupport);
 			stm.executeUpdate();
 				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+	}
+	public SupportClass getSupportByMaSupport(String maSupport) {
+	    String sql = "SELECT * FROM Support WHERE maSupport = ?";
+	    try {
+	        conn = DBConnect.getConnection();
+	        stm = conn.prepareStatement(sql);
+	        stm.setString(1, maSupport);
+	        result = stm.executeQuery();
+
+	        if (result.next()) {
+	            return new SupportClass(
+	                result.getString("maSupport"),
+	                result.getString("hoTen"),
+	                result.getString("diaChi"),
+	                result.getString("lopSinhHoat"),
+	                result.getString("soDienThoai"),
+	                result.getString("email")
+	            );
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+
+	public void editSupport(String maSupport, String hoTen, String diaChi,String LopSinhHoat, String soDienThoai, String email){
+		conn = DBConnect.getConnection();
+		//Doc du lieu tu Database luu vao List<Student>
+		//1. Khai bao List<student> de luu du lieu 
+		//List<UserJava> userName = new ArrayList<UserJava>();
+		String sql = "UPDATE Support\r\n"
+				+ "SET \r\n"
+				+ "    hoTen = ?, \r\n"
+				+ "    diaChi = ?, \r\n"
+				+ "    lopSinhHoat = ?, \r\n"
+				+ "    soDienThoai = ?, \r\n"
+				+ "    email = ?\r\n"
+				+ "WHERE maSupport = ?;\r\n";
+		//3.Ket noi, truy van --> luu du lieu ve List Student
+		try {		
+			stm = conn.prepareStatement(sql);
+			stm.setString(1, hoTen);
+			stm.setString(2, diaChi);
+			stm.setString(3, LopSinhHoat);
+			stm.setString(4, soDienThoai);
+			stm.setString(5, email);
+			stm.setString(6, maSupport);
+			stm.executeUpdate();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	public static void main(String[] args) {
 		DAOcn dao = new DAOcn();
