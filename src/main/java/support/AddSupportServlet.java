@@ -28,7 +28,6 @@ public class AddSupportServlet extends HttpServlet {
 
         String maSupport = request.getParameter("maSupport");
         String hoTen = request.getParameter("hoTen");
-        String diaChi = request.getParameter("diaChi");
         String LopSinhHoat = request.getParameter("LopSinhHoat");
         String soDienThoai = request.getParameter("soDienThoai");
         String email = request.getParameter("email");
@@ -36,7 +35,7 @@ public class AddSupportServlet extends HttpServlet {
         DAOcn dao = new DAOcn();
         SupportClass a = dao.checkSupport(maSupport);
         if(a==null) {
-    		dao.addSupport(maSupport, hoTen, diaChi, LopSinhHoat, soDienThoai, email);
+    		dao.addSupport(maSupport, hoTen, LopSinhHoat, soDienThoai, email);
     		response.sendRedirect("listSupport");
     		//request.getRequestDispatcher("./supPort/menuSupPort.jsp").forward(request, response);
     	}else {

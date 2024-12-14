@@ -1,0 +1,123 @@
+/* General Container and Typography */
+.container {
+    padding: 20px;
+    max-width: 1200px;  /* Limit container width for better alignment */
+    margin: 0 auto;     /* Center the container horizontally */
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em; /* Slightly larger for better emphasis */
+    color: #333;
+    margin-bottom: 30px; /* Increased spacing below the heading */
+    font-family: 'Arial', sans-serif; /* Clean font */
+    font-weight: bold;
+}
+
+/* Course Cards Layout */
+.course-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px; /* Ensures consistent spacing between cards */
+}
+
+.course-card {
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    margin-bottom: 20px; /* Spacing at the bottom */
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.course-card:hover {
+    transform: translateY(-5px); /* Subtle hover effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.course-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; /* Smoother rounding for images */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.course-card:hover img {
+    transform: scale(1.05); /* Slight zoom effect on image hover */
+}
+
+.course-card h3 {
+    font-size: 1.4em;
+    color: #333;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.course-card p {
+    color: #555;
+    font-size: 1em;
+    margin-bottom: 20px; /* Increased margin for better spacing */
+    line-height: 1.6;
+}
+
+.course-card .btn {
+    display: inline-block;
+    background-color: #008cba;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1em;
+    text-decoration: none;
+    border-radius: 6px;
+    margin: 5px 0;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.course-card .btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px); /* Subtle button hover effect */
+}
+
+.course-card .btn:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Focus style */
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    margin-top: 40px; /* Increased margin from above content */
+    font-size: 0.9em;
+    font-family: 'Arial', sans-serif;
+}
+
+footer a {
+    color: #f8f9fa;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .course-card {
+        width: 45%; /* Two cards per row on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .course-card {
+        width: 100%; /* Single card per row on mobile */
+    }
+    
+    h1 {
+        font-size: 2em; /* Adjust header size for mobile */
+    }
+}

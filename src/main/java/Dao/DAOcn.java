@@ -2,7 +2,7 @@ package DAO;
 
 import java.sql.Connection;
 
-
+import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -142,7 +142,6 @@ public class DAOcn{
 	            userName.add(new SupportClass(
 	                result.getString("maSupport"),
 	                result.getString("hoTen"),
-	                result.getString("diaChi"),
 	                result.getString("LopSinhHoat"),
 	                result.getString("soDienThoai"),
 	                result.getString("email")
@@ -183,7 +182,7 @@ public class DAOcn{
 				return new SupportClass(
 						result.getString("maSupport"),
 		                result.getString("hoTen"),
-		                result.getString("diaChi"),
+		            
 		                result.getString("LopSinhHoat"),
 		                result.getString("soDienThoai"),
 		                result.getString("email")
@@ -194,20 +193,19 @@ public class DAOcn{
 		}
 		return null;
 	}
-	public void addSupport(String maSupport, String hoTen, String diaChi,String LopSinhHoat, String soDienThoai, String email){
+	public void addSupport(String maSupport, String hoTen,String LopSinhHoat, String soDienThoai, String email){
 		conn = DBConnect.getConnection();
 		//Doc du lieu tu Database luu vao List<Student>
 		//1. Khai bao List<student> de luu du lieu 
 		//List<UserJava> userName = new ArrayList<UserJava>();
-		String sql = "insert into Support (maSupport, hoTen, diaChi, LopSinhHoat, SoDienThoai, Email)\n"
-				+ "values(?,?,?,?,?,?)\n";
+		String sql = "insert into Support (maSupport, hoTen, LopSinhHoat, SoDienThoai, Email)\n"
+				+ "values(?,?,?,?,?)\n";
 		//3.Ket noi, truy van --> luu du lieu ve List Student
 		try {
 			
 			stm = conn.prepareStatement(sql);
 			stm.setString(1, maSupport);
 			stm.setString(2, hoTen);
-			stm.setString(3, diaChi);
 			stm.setString(4, LopSinhHoat);
 			stm.setString(5, soDienThoai);
 			stm.setString(6, email);
@@ -247,7 +245,6 @@ public class DAOcn{
 	            return new SupportClass(
 	                result.getString("maSupport"),
 	                result.getString("hoTen"),
-	                result.getString("diaChi"),
 	                result.getString("lopSinhHoat"),
 	                result.getString("soDienThoai"),
 	                result.getString("email")
@@ -259,7 +256,7 @@ public class DAOcn{
 	    return null;
 	}
 
-	public void editSupport(String maSupport, String hoTen, String diaChi,String LopSinhHoat, String soDienThoai, String email){
+	public void editSupport(String maSupport, String hoTen,String LopSinhHoat, String soDienThoai, String email){
 		conn = DBConnect.getConnection();
 		//Doc du lieu tu Database luu vao List<Student>
 		//1. Khai bao List<student> de luu du lieu 
@@ -267,7 +264,6 @@ public class DAOcn{
 		String sql = "UPDATE Support\r\n"
 				+ "SET \r\n"
 				+ "    hoTen = ?, \r\n"
-				+ "    diaChi = ?, \r\n"
 				+ "    lopSinhHoat = ?, \r\n"
 				+ "    soDienThoai = ?, \r\n"
 				+ "    email = ?\r\n"
@@ -276,11 +272,10 @@ public class DAOcn{
 		try {		
 			stm = conn.prepareStatement(sql);
 			stm.setString(1, hoTen);
-			stm.setString(2, diaChi);
-			stm.setString(3, LopSinhHoat);
-			stm.setString(4, soDienThoai);
-			stm.setString(5, email);
-			stm.setString(6, maSupport);
+			stm.setString(2, LopSinhHoat);
+			stm.setString(3, soDienThoai);
+			stm.setString(4, email);
+			stm.setString(5, maSupport);
 			stm.executeUpdate();
 				
 		} catch (Exception e) {
@@ -294,5 +289,25 @@ public class DAOcn{
 			System.out.println(o);
 		}
 	}
-	
+	 public List<SupportClass> getSupportForClass(String maLop) throws SQLException {
+	        List<SupportClass> supportList = new ArrayList<>();
+	        String query = "SELECT * FROM Support WHERE maLop = ?";
+
+	        try (Connection conn = DBConnect.getConnection();
+	             PreparedStatement ps = conn.prepareStatement(query)) {
+	            ps.setString(1, maLop);
+	            ResultSet rs = ps.executeQuery();
+
+	            while (rs.next()) {
+	                SupportClass support = new SupportClass();
+	                support.setMaSupport(rs.getString("maSupport"));
+	                support.setHoTen(rs.getString("hoTen"));
+	                support.setEmail(rs.getString("email"));
+	                support.setLopSinhHoat(rs.getString("LopSinhHoat"));
+	                support.setSoDienThoai(rs.getString("soDienThoai"));
+	                supportList.add(support);
+	            }
+	        }
+	        return supportList;
+	    }
 }

@@ -96,10 +96,6 @@
             <input type="text" id="hoTen" name="hoTen" value="${support.hoTen}" required>
         </div>
 
-        <div class="form-group">
-            <label for="diaChi">Địa Chỉ</label>
-            <input type="text" id="diaChi" name="diaChi" value="${support.diaChi}">
-        </div>
 
         <div class="form-group">
             <label for="lopSinhHoat">Lớp Sinh Hoạt</label>

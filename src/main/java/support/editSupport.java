@@ -41,12 +41,11 @@ public class editSupport extends HttpServlet {
 
         String maSupport = request.getParameter("maSupport");
         String hoTen = request.getParameter("hoTen");
-        String diaChi = request.getParameter("diaChi");
         String LopSinhHoat = request.getParameter("lopSinhHoat");
         String soDienThoai = request.getParameter("soDienThoai");
         String email = request.getParameter("email");
         DAOcn dao = new DAOcn();
-        dao.editSupport(maSupport, hoTen, diaChi, LopSinhHoat, soDienThoai, email);
+        dao.editSupport(maSupport, hoTen, LopSinhHoat, soDienThoai, email);
         response.sendRedirect("listSupport");
 	}
 

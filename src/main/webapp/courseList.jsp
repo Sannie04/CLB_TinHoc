@@ -1,63 +1,60 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.List" %>
+<%@ page import="model.Course" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>Danh sách khóa học</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        .course {
-            margin: 20px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            display: flex;
-            align-items: center;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .course img {
-            width: 100px;
-            height: 100px;
-            margin-right: 20px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-        .course h3 {
-            margin: 0;
-            color: #006600;
-        }
-        .course p {
-            margin: 5px 0;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Danh sách Khóa Học</title>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/course.css">
 </head>
 <body>
-<h1>Danh sách khóa học</h1>
-<%
-    List<model.Course> khoaHocList = 
-        (List<model.Course>) request.getAttribute("khoaHocList");
-    if (khoaHocList != null) {
-        for (model.Course course : khoaHocList) {
-%>
-    <div class="course">
-        <img src="<%= request.getContextPath() + "/" + course.getImage() %>" alt="Ảnh khóa học">
-        <div>
-            <h3><%= course.getTenKhoaHoc() %></h3>
-            <p>Mô tả: <%= course.getMoTa() %></p>
-            <p>Thời gian: <%= course.getNgayBatDau() %> - <%= course.getNgayKetThuc() %></p>
+    <!-- Include Header -->
+    <jsp:include page="header.jsp" />
+
+    <div class="container">
+        <h1>Danh sách Khóa Học</h1>
+
+        <!-- Button to Add New Course -->
+        <a href="addCourse.jsp" class="btn">Thêm Khóa Học</a>
+
+        <div class="course-cards">
+            <!-- Loop through the courses list -->
+            <c:choose>
+                <c:when test="${not empty listC}">
+                    <c:forEach var="course" items="${listC}">
+                        <div class="course-card">
+                            <!-- Fallback image if image is empty or null -->
+                            <img src="${empty course.image ? 'default_image.jpg' : course.image}" alt="Course Image" />
+                            <h3>${course.tenKhoaHoc}</h3>
+                            <p>${course.moTa}</p>
+
+                            <!-- Edit button for the course -->
+                            <a href="listCourse?action=edit&maKhoaHoc=${course.maKhoaHoc}" class="btn">Sửa</a>
+
+                            <!-- Displaying class list (assuming course has a class list) -->
+                            <ul>
+                                <c:forEach var="lop" items="${course.danhSachLop}">
+                                    <li>
+                                        <a href="viewDetails?maLopHoc=${lop.maLopHoc}" class="btn">${lop.tenLopHoc}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <p style="text-align: center; width: 100%; color: #666;">Không có dữ liệu</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
-<% 
-        }
-    } else { 
-%>
-    <p>Không có khóa học nào được tìm thấy.</p>
-<% 
-    } 
-%>
+
+    <footer>
+        <p>&copy; 2024 CIT Academy</p>
+    </footer>
 </body>
 </html>

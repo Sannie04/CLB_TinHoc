@@ -11,13 +11,45 @@
 	</servlet>
 
     
-    <servlet-mapping>
-        <servlet-name>ListSupportServlet</servlet-name>
-        <url-pattern>/ListSupport</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>courseServlet</servlet-name>
+        <servlet-class>servlet.CourseServlet</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>StudentManagementServlet</servlet-name>
+        <servlet-class>servlet.StudentManagementServlet</servlet-class>
+    </servlet>
+  <servlet>
+    <servlet-name>ViewDetailsServlet</servlet-name>
+    <servlet-class>servlet.ViewDetailsServlet</servlet-class>
+</servlet>
+<servlet>
+    <servlet-name>ResultServlet</servlet-name>
+    <servlet-class>servlet.ResultServlet</servlet-class>
+</servlet>
+<servlet>
+    <servlet-name>EditScoresServlet</servlet-name>
+    <servlet-class>servlet.EditScoresServlet</servlet-class>
+</servlet>
+    
 	<welcome-file-list>
    	 <welcome-file>Home.jsp</welcome-file>
  	</welcome-file-list>
+	
+    
+    <context-param>
+        <param-name>maxConnections</param-name>
+        <param-value>10</param-value>
+    </context-param>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
 	
 	
 </web-app>
