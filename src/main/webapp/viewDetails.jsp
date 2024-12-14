@@ -53,7 +53,7 @@
                             <td>${sv.ngayThamGia}</td>
                             <td>
                         <!-- Thêm liên kết để xem kết quả thi -->
-                        <a href="viewScores?maSinhVien=${sv.maSinhVien}" class="btn">XKết Quả</a>
+                        <a href="viewScores?maSinhVien=${sv.maSinhVien}" class="btn">Kết Quả</a>
                     </td>
                         </tr>
                     </c:forEach>

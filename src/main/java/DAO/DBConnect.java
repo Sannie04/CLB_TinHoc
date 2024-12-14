@@ -12,7 +12,7 @@ public class DBConnect {
     private static final Logger logger = Logger.getLogger(DBConnect.class.getName());
 
     // Database URL, username, and password
-    private static final String URL = "jdbc:mysql://localhost:3306/web";
+    private static final String URL = "jdbc:mysql://localhost:3306/clb_tinhoc";
     private static final String USER = "root";
     private static final String PASSWORD = "0728012004";
 

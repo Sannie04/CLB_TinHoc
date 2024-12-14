@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-            
+                
+    
     
     <wb-module deploy-name="CLB_TinHoc">
-                        
+                                
+        
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/images"/>
+                                
+        
         
         <property name="context-root" value="CLB_TinHoc"/>
-                        
+                                
+        
         
         <property name="java-output-path" value="/CLB_TinHoc/build/classes"/>
-                    
+                            
+    
     
     </wb-module>
-        
+            
+
 
 </project-modules>

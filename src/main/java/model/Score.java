@@ -1,30 +1,23 @@
 package model;
 
 public class Score {
-    private int maDiem;
+    private String maSinhVien;
     private String tenKhoaHoc;
     private float diem;
     private int lanThi;
-    private int maKhoaHoc;  // Thêm thuộc tính này
+    private int maKhoaHoc;
+    private String hoTen; // Thêm trường hoTen
 
-    // Getter và setter cho maKhoaHoc
-    public int getMaKhoaHoc() {
-        return maKhoaHoc;
+    // Getter and Setter for maSinhVien
+    public String getMaSinhVien() {
+        return maSinhVien;
     }
 
-    public void setMaKhoaHoc(int maKhoaHoc) {
-        this.maKhoaHoc = maKhoaHoc;
+    public void setMaSinhVien(String maSinhVien) {
+        this.maSinhVien = maSinhVien;
     }
 
-    // Các getter và setter khác cho các thuộc tính
-    public int getMaDiem() {
-        return maDiem;
-    }
-
-    public void setMaDiem(int maDiem) {
-        this.maDiem = maDiem;
-    }
-
+    // Getter and Setter for tenKhoaHoc
     public String getTenKhoaHoc() {
         return tenKhoaHoc;
     }
@@ -33,6 +26,7 @@ public class Score {
         this.tenKhoaHoc = tenKhoaHoc;
     }
 
+    // Getter and Setter for diem
     public float getDiem() {
         return diem;
     }
@@ -41,11 +35,30 @@ public class Score {
         this.diem = diem;
     }
 
+    // Getter and Setter for lanThi
     public int getLanThi() {
         return lanThi;
     }
 
     public void setLanThi(int lanThi) {
         this.lanThi = lanThi;
+    }
+
+    // Getter and Setter for maKhoaHoc
+    public int getMaKhoaHoc() {
+        return maKhoaHoc;
+    }
+
+    public void setMaKhoaHoc(int maKhoaHoc) {
+        this.maKhoaHoc = maKhoaHoc;
+    }
+
+    // Getter and Setter for hoTen
+    public String getHoTen() {
+        return hoTen;
+    }
+
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
     }
 }

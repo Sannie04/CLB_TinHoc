@@ -39,7 +39,7 @@
         <input type="date" id="endDate" name="ngayKetThuc" required>
 
         <label for="image">Course Image:</label>
-        <input type="file" id="image" name="image" accept="image/*">
+        <input type="file" id="image" name="image" accept="images/*">
 
         <button type="submit">Add Course</button>
     </form>
