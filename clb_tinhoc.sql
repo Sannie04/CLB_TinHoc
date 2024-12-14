@@ -138,3 +138,16 @@ VALUES
 ('SV008', 3, 6.0, 1),
 ('SV009', 4, 8.7, 1),
 ('SV010', 5, 9.2, 1);
+CREATE TABLE user_login (  
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	studentId VARCHAR(20) NOT NULL,  
+    username VARCHAR(50) NOT NULL,  
+    email VARCHAR(100) NOT NULL,  
+    so_dien_thoai VARCHAR(15) NOT NULL,  
+    ngay_sinh DATE NOT NULL,  
+    pass VARCHAR(100) NOT NULL
+);
+insert into user_login (studentId, username, email, so_dien_thoai, ngay_sinh, pass)
+VALUES 
+('admin','sinhvien1', 'hihi@gmail.com', '0987265612', '2000-03-12', '123'),
+('hiu','sinhvien2', 'hi@gmail.com', '0983652412', '2000-05-08', '111');
