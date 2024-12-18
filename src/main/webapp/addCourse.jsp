@@ -1,50 +1,33 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Course</title>
-    <link rel="stylesheet" href="css/addCourse.css">
+    <title>Thêm Khóa Học</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h2>Add New Course</h2>
-    
-    <c:if test="${not empty error}">
-        <div class="error-message">
-            ${error}
-        </div>
-    </c:if>
-    
-    <form action="addCourseServlet" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="action" value="add"/>
+    <h2>Thêm Khóa Học Mới</h2>
+    <form action="listCourse" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+        <input type="hidden" name="action" value="add">
         
-        <label for="courseName">Course Name:</label>
-        <input type="text" id="courseName" name="tenKhoaHoc" required>
+        <label for="tenKhoaHoc">Tên Khóa Học:</label>
+        <input type="text" id="tenKhoaHoc" name="tenKhoaHoc" required><br>
 
-        <label for="courseDescription">Course Description:</label>
-        <textarea id="courseDescription" name="moTa" required></textarea>
+        <label for="moTa">Mô Tả:</label>
+        <textarea id="moTa" name="moTa" rows="4" required></textarea><br>
 
-        <label for="courseDuration">Course Duration (hours):</label>
-        <input type="number" id="courseDuration" name="courseDuration" required>
+        <label for="ngayBatDau">Ngày Bắt Đầu:</label>
+        <input type="date" id="ngayBatDau" name="ngayBatDau" required><br>
 
-        <label for="courseInstructor">Instructor:</label>
-        <input type="text" id="courseInstructor" name="courseInstructor" required>
+        <label for="ngayKetThuc">Ngày Kết Thúc:</label>
+        <input type="date" id="ngayKetThuc" name="ngayKetThuc" required><br>
 
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="ngayBatDau" required>
+        <label for="image">Ảnh Khóa Học:</label>
+        <input type="file" id="image" name="image"><br><br>
 
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="ngayKetThuc" required>
-
-        <label for="image">Course Image:</label>
-        <input type="file" id="image" name="image" accept="images/*">
-
-        <button type="submit">Add Course</button>
+        <button type="submit">Thêm Khóa Học</button>
     </form>
-
-    <br>
-    <a href="courseList.jsp" class="back-link">Back to Course List</a>
 </body>
 </html>

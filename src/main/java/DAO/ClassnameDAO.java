@@ -62,10 +62,11 @@ public class ClassnameDAO {
 
     // Lấy danh sách support staff theo mã lớp học
     private List<SupportClass> getSupportsByLop(int maLopHoc) throws SQLException {
-        String query = "SELECT * \r\n"
-        		+ "FROM support sp \r\n"
-        		+ "JOIN support_lophoc sl ON sp.MaSupport = sl.MaSupport \r\n"
-        		+ "WHERE sl.MaLopHoc = ?";
+        String query = "SELECT sp.MaSupport, sp.HoTen, sp.LopSinhHoat, sp.SoDienThoai, sp.Email, sp.HinhAnh "  // Include HinhAnh
+                + "FROM support sp "
+                + "JOIN support_lophoc sl ON sp.MaSupport = sl.MaSupport "
+                + "WHERE sl.MaLopHoc = ?";
+
         List<SupportClass> supports = new ArrayList<>();
         
         try (Connection conn = DBConnect.getConnection();
@@ -80,9 +81,11 @@ public class ClassnameDAO {
                 support.setLopSinhHoat(rs.getString("LopSinhHoat"));
                 support.setSoDienThoai(rs.getString("SoDienThoai"));
                 support.setEmail(rs.getString("Email"));
+                support.setHinhAnh(rs.getString("HinhAnh"));  // Set the image field
                 supports.add(support);
             }
         }
         return supports;
     }
+
 }

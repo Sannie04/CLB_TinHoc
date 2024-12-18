@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -18,8 +19,8 @@
 
         <div class="course-cards">
             <c:choose>
-                <c:when test="${not empty listC}">
-                    <c:forEach var="course" items="${listC}">
+                <c:when test="${not empty listCourses}">
+                    <c:forEach var="course" items="${listCourses}">
                         <div class="course-card">
                             <c:choose>
                                 <c:when test="${empty course.image}">
@@ -31,7 +32,7 @@
                             </c:choose>
                             <h3>${course.tenKhoaHoc}</h3>
                             <p>${empty course.moTa ? 'Mô tả chưa có.' : course.moTa}</p>
-                            <a href="listCourse?action=edit&maKhoaHoc=${course.maKhoaHoc}" class="btn">Sửa</a>
+                            <a href="loadcourse?maKhoaHoc=${course.maKhoaHoc}" class="btn">Sửa</a>
                              <ul>
                                 <c:forEach var="lop" items="${course.danhSachLop}">
                                     <li>

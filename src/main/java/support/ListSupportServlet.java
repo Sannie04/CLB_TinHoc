@@ -26,23 +26,21 @@ public class ListSupportServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        // Khởi tạo DAO và lấy danh sách SupportClass
+        // Get all supports from DAO
         DAOcn supportDAO = new DAOcn();
-        List<SupportClass> listP = supportDAO.getAllSupportClass(); // Lấy tất cả các đối tượng
+        List<SupportClass> listP = supportDAO.getAllSupportClass();
 
-        // Kiểm tra xem list có dữ liệu không
         if (listP != null && !listP.isEmpty()) {
             System.out.println("Dữ liệu đã được lấy thành công từ DAO.");
         } else {
             System.out.println("Danh sách Support không có dữ liệu.");
         }
 
-        // Gửi dữ liệu đến JSP
+        // Set the attribute for the JSP to access
         request.setAttribute("listP", listP);
 
-        // Chuyển tiếp đến JSP để hiển thị
+        // Forward to the JSP page
         System.out.println("Đang chuyển tiếp đến JSP: ./supPort/menuSupPort.jsp");
         request.getRequestDispatcher("./supPort/menuSupPort.jsp").forward(request, response);
-        //response.sendRedirect("./supPort/menuSupPort.jsp");
     }
 }

@@ -82,8 +82,7 @@
         </div>
         <h1>update Support</h1>
     </nav>
-    
-    <form action="editSupport" method="post">
+   <form action="editSupport" method="post" enctype="multipart/form-data">
         <h2>Chỉnh sửa thông tin Support</h2>
 
         <div class="form-group">
@@ -95,7 +94,6 @@
             <label for="hoTen">Họ Tên</label>
             <input type="text" id="hoTen" name="hoTen" value="${support.hoTen}" required>
         </div>
-
 
         <div class="form-group">
             <label for="lopSinhHoat">Lớp Sinh Hoạt</label>
@@ -112,7 +110,13 @@
             <input type="email" id="email" name="email" value="${support.email}" required>
         </div>
 
+        <div class="form-group">
+            <label for="hinhAnh">Hình Ảnh</label>
+            <input type="file" id="hinhAnh" name="hinhAnh">
+        </div>
+
         <button type="submit">Cập nhật</button>
     </form>
+
 </body>
 </html>

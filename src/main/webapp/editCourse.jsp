@@ -1,48 +1,41 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="model.Course" %>
 
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sửa Khóa Học</title>
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/course.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Course</title>
 </head>
 <body>
-    <!-- Include Header -->
-    <jsp:include page="header.jsp" />
+    <h2>Edit Course</h2>
 
-    <div class="container">
-        <h1>Sửa Khóa Học</h1>
+    <form action="listCourse?action=edit" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+        <input type="hidden" name="action" value="edit">
+        <input type="hidden" name="maKhoaHoc" value="${course.maKhoaHoc}">
+        
+        <label for="tenKhoaHoc">Course Name:</label>
+        <input type="text" name="tenKhoaHoc" value="${course.tenKhoaHoc}" required><br><br>
 
-        <!-- Form for editing the course -->
-        <form action="listCourse" method="post">
-            <input type="hidden" name="action" value="edit" />
-            <input type="hidden" name="maKhoaHoc" value="${course.maKhoaHoc}" />
-            
-            <label for="tenKhoaHoc">Tên Khóa Học</label>
-            <input type="text" id="tenKhoaHoc" name="tenKhoaHoc" value="${course.tenKhoaHoc}" required />
-            
-            <label for="moTa">Mô Tả</label>
-            <textarea id="moTa" name="moTa" required>${course.moTa}</textarea>
-            
-            <label for="ngayBatDau">Ngày Bắt Đầu</label>
-            <input type="date" id="ngayBatDau" name="ngayBatDau" value="${course.ngayBatDau}" required />
-            
-            <label for="ngayKetThuc">Ngày Kết Thúc</label>
-            <input type="date" id="ngayKetThuc" name="ngayKetThuc" value="${course.ngayKetThuc}" required />
-            
-            <label for="image">Hình Ảnh</label>
-            <input type="text" id="image" name="image" value="${course.image}" />
+        <label for="moTa">Description:</label>
+        <textarea name="moTa" required>${course.moTa}</textarea><br><br>
 
-            <button type="submit" class="btn">Cập Nhật Khóa Học</button>
-        </form>
-    </div>
+        <label for="ngayBatDau">Start Date:</label>
+        <input type="date" name="ngayBatDau" value="${course.ngayBatDau}" required><br><br>
 
-    <footer>
-        <p>&copy; 2024 CIT Academy</p>
-    </footer>
+        <label for="ngayKetThuc">End Date:</label>
+        <input type="date" name="ngayKetThuc" value="${course.ngayKetThuc}" required><br><br>
+
+        <label for="image">Image:</label>
+        <input type="file" name="image"><br><br>
+        
+        <input type="hidden" name="currentImage" value="${course.image}">
+
+        <button type="submit">Update Course</button>
+    </form>
+
+    <a href="listCourse">Back to Course List</a>
 </body>
 </html>

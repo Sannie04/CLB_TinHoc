@@ -68,7 +68,7 @@ public class CoursesDAO {
         }
         return classes;
     }
-    public Course getCourseById(int maKhoaHoc) {
+    public static Course getCourseById(int maKhoaHoc) {
         Course course = null;
         String query = "SELECT * FROM khoahoc WHERE MaKhoaHoc = ?";
         
@@ -94,34 +94,12 @@ public class CoursesDAO {
 
 
     // Method to add a new course
-    public void addCourse(int maKhoaHoc, String tenKhoaHoc, String moTa, java.sql.Date ngayBatDau, java.sql.Date ngayKetThuc, String image) {
+    public void addCourse(String tenKhoaHoc, String moTa, java.sql.Date ngayBatDau, java.sql.Date ngayKetThuc, String image) {
         if (image == null || image.trim().isEmpty()) {
-            image = "default_image.jpg";  // Default image if no image provided
+            image = "images/default_image.jpg"; // Đường dẫn mặc định đến ảnh
         }
 
-        String sql = "INSERT INTO khoahoc (maKhoaHoc, tenKhoaHoc, moTa, ngayBatDau, ngayKetThuc, image) VALUES (?, ?, ?, ?, ?, ?)";
-
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setInt(1, maKhoaHoc);
-            stm.setString(2, tenKhoaHoc);
-            stm.setString(3, moTa);
-            stm.setDate(4, ngayBatDau);
-            stm.setDate(5, ngayKetThuc);
-            stm.setString(6, image);
-            stm.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();  // For production, use logging instead of printing stack trace.
-        }
-    }
-
-    // Method to edit a course
-    public void editCourse(int maKhoaHoc, String tenKhoaHoc, String moTa, java.sql.Date ngayBatDau, java.sql.Date ngayKetThuc, String image) {
-        if (image == null || image.trim().isEmpty()) {
-            image = "default_image.jpg";  // Default image if no image provided
-        }
-
-        String sql = "UPDATE khoahoc SET tenKhoaHoc = ?, moTa = ?, ngayBatDau = ?, ngayKetThuc = ?, image = ? WHERE maKhoaHoc = ?";
+        String sql = "INSERT INTO khoahoc (tenKhoaHoc, moTa, ngayBatDau, ngayKetThuc, image) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stm = conn.prepareStatement(sql)) {
@@ -130,13 +108,35 @@ public class CoursesDAO {
             stm.setDate(3, ngayBatDau);
             stm.setDate(4, ngayKetThuc);
             stm.setString(5, image);
-            stm.setInt(6, maKhoaHoc);  // Set maKhoaHoc
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();  // For production, use logging instead of printing stack trace.
+            e.printStackTrace(); // Sử dụng logging thay vì in stack trace trong sản xuất
         }
     }
 
-  
-    
+
+    // Method to edit a course
+    public void editCourse(int maKhoaHoc, String tenKhoaHoc, String moTa, java.sql.Date ngayBatDau, java.sql.Date ngayKetThuc, String image) {
+        
+          String  sql = "UPDATE khoahoc SET tenKhoaHoc = ?, moTa = ?, ngayBatDau = ?, ngayKetThuc = ?, image = ? WHERE maKhoaHoc = ?";
+       
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement stm = conn.prepareStatement(sql)) {
+            stm.setString(1, tenKhoaHoc);
+            stm.setString(2, moTa);
+            stm.setDate(3, ngayBatDau);
+            stm.setDate(4, ngayKetThuc);
+
+            if (image == null || image.trim().isEmpty()) {
+                stm.setInt(5, maKhoaHoc);
+            } else {
+                stm.setString(5, image);
+                stm.setInt(6, maKhoaHoc);
+            }
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }    
 }

@@ -23,20 +23,22 @@ CREATE TABLE support (
     HoTen VARCHAR(100),
     Email VARCHAR(100),
     LopSinhHoat VARCHAR(50),
-    SoDienThoai VARCHAR(15)
+    SoDienThoai VARCHAR(15),
+    HinhAnh VARCHAR(255)
 );
-INSERT INTO support (MaSupport, HoTen, Email, LopSinhHoat, SoDienThoai) 
-VALUES 
-('SUP001', 'Hoang Van E', 'hoangvane@example.com', '22CNTT2', '0912345682'),
-('SUP002', 'Do Thi F', 'dothif@example.com', '21CNTT1', '0912345683'),
-('SUP003', 'Bui Van G', 'buivang@example.com', '22CNTT2', '0912345684'),
-('SUP004', 'Ngo Thi H', 'ngothih@example.com', '21CNTT2', '0912345685'),
-('SUP005', 'Tran Van K', 'tranvank@example.com', '21CNTT1', '0912345692'),
-('SUP006', 'Nguyen Thi L', 'nguyenthil@example.com', '22CNTT2', '0912345693'),
-('SUP007', 'Le Van M', 'levanm@example.com', '21CNTT2', '0912345694'),
-('SUP008', 'Pham Thi N', 'phamthin@example.com', '22CNTT2', '0912345695'),
-('SUP009', 'Do Van O', 'dovano@example.com', '21CNTT1', '0912345696'),
-('SUP010', 'Hoang Thi P', 'hoangthip@example.com', '21CNTT2', '0912345697');
+INSERT INTO support (MaSupport, HoTen, Email, LopSinhHoat, SoDienThoai, HinhAnh)
+VALUES
+('SUP001', 'Hoang Van E', 'hoangvane@example.com', '22CNTT2', '0912345682', 'image1'),
+('SUP002', 'Do Thi F', 'dothif@example.com', '21CNTT1', '0912345683', 'image2'),
+('SUP003', 'Bui Van G', 'buivang@example.com', '22CNTT2', '0912345684', 'image3'),
+('SUP004', 'Ngo Thi H', 'ngothih@example.com', '21CNTT2', '0912345685', 'image4'),
+('SUP005', 'Tran Van K', 'tranvank@example.com', '21CNTT1', '0912345692', 'image5'),
+('SUP006', 'Nguyen Thi L', 'nguyenthil@example.com', '22CNTT2', '0912345693', 'image6'),
+('SUP007', 'Le Van M', 'levanm@example.com', '21CNTT2', '0912345694', 'image7'),
+('SUP008', 'Pham Thi N', 'phamthin@example.com', '22CNTT2', '0912345695', 'image8'),
+('SUP009', 'Do Van O', 'dovano@example.com', '21CNTT1', '0912345696', 'image9'),
+('SUP010', 'Hoang Thi P', 'hoangthip@example.com', '21CNTT2', '0912345697', 'image10');
+
 
 CREATE TABLE khoahoc (
     MaKhoaHoc INT AUTO_INCREMENT PRIMARY KEY,
@@ -102,6 +104,8 @@ CREATE TABLE support_lophoc (
     FOREIGN KEY (MaSupport) REFERENCES support(MaSupport),
     FOREIGN KEY (MaLopHoc) REFERENCES lophoc(MaLopHoc)
 );
+
+
 INSERT INTO support_lophoc (MaSupport, MaLopHoc) 
 VALUES 
 ('SUP001', 1),
