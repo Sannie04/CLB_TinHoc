@@ -1,80 +1,86 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
+/* General Reset and Body Styling */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-h1 {
-    text-align: center;
-    margin: 20px 0;
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
 }
 
+/* Container Styling */
+.containers {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Heading Styles */
+h2 {
+    color: #333;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid #008cba;
+    padding-bottom: 5px;
+}
+
+/* Table Styling */
 table {
     width: 100%;
+    margin-bottom: 30px;
     border-collapse: collapse;
-    margin: 0 auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-    padding: 10px;
-    text-align: center;
+table th, table td {
+    padding: 12px;
+    text-align: left;
     border: 1px solid #ddd;
 }
 
-thead {
-    background-color: #f2f2f2;
+table th {
+    background-color: #008cba;
+    color: #fff;
+    font-weight: bold;
 }
 
-/* Responsive Table */
-@media screen and (max-width: 768px) {
-    table, th, td {
-        display: block;
-        width: 100%;
-    }
-
-    th, td {
-        box-sizing: border-box;
-        padding: 8px;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tr {
-        margin-bottom: 10px;
-        display: block;
-    }
-
-    td {
-        border: none;
-        text-align: left;
-    }
-
-    .action-buttons {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .action-buttons form input {
-        margin: 5px 0;
-        padding: 5px;
-    }
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-@media screen and (max-width: 480px) {
-    h1 {
-        font-size: 20px;
+table tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+
+/* Empty List Message Styling */
+p {
+    font-size: 1.2em;
+    color: #888;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
     }
 
     table th, table td {
-        font-size: 14px;
-    }
-
-    .action-buttons form button {
-        padding: 6px 12px;
-        font-size: 14px;
+        font-size: 0.9em;
     }
 }
+
+/* Additional Header Styling */
+

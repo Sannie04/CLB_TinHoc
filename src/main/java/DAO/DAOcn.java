@@ -3,13 +3,16 @@ package DAO;
 import java.sql.Connection;
 
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import DAO.DAOcn;
+import model.BCrypt;
 import model.SupportClass;
 import model.UserJava;
 
@@ -48,29 +51,35 @@ public class DAOcn{
 	}
 	@SuppressWarnings("unchecked")
 	public UserJava login(String user, String pass) {
-	    conn = DBConnect.getConnection();
-	    String sql = "SELECT * FROM user_login WHERE studentId = ? AND pass = ?";
-	    try {
-	        stm = conn.prepareStatement(sql);
-	        stm.setString(1, user);
-	        stm.setString(2, pass);
-	        result = stm.executeQuery();
-	        if (result.next()) {
-	            return new UserJava(
-	            	result.getInt("id"),
-	                result.getString("studentId"),
-	                result.getString("username"),
-	                result.getString("email"),
-	                result.getString("so_dien_thoai"),
-	                result.getString("ngay_sinh"),
-	                result.getString("pass")
-	            );
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return null;
-	}
+        conn = DBConnect.getConnection();  // Giả sử bạn có lớp DBConnect để kết nối DB
+        String sql = "SELECT * FROM user_login WHERE studentId = ?"; // Không cần so sánh mật khẩu ngay trong câu lệnh SQL
+
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, user);
+            result = stm.executeQuery();
+
+            if (result.next()) {
+                String storedHashedPassword = result.getString("pass");  // Lấy mật khẩu đã mã hóa từ DB
+
+                // Kiểm tra mật khẩu nhập vào với mật khẩu đã mã hóa trong DB
+                if (BCrypt.checkpw(pass, storedHashedPassword)) {
+                    return new UserJava(
+                        result.getInt("id"),
+                        result.getString("studentId"),
+                        result.getString("username"),
+                        result.getString("email"),
+                        result.getString("so_dien_thoai"),
+                        result.getString("ngay_sinh"),
+                        result.getString("pass")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 	public UserJava checkUser(String user){
@@ -131,7 +140,6 @@ public class DAOcn{
 	public List<SupportClass> getAllSupportClass() {
 	    List<SupportClass> userName = new ArrayList<SupportClass>();
 	    try {
-	        // Kết nối với cơ sở dữ liệu
 	        conn = DBConnect.getConnection();
 	        String sql = "SELECT * FROM Support";
 	        stm = conn.prepareStatement(sql);
@@ -142,16 +150,15 @@ public class DAOcn{
 	            userName.add(new SupportClass(
 	                result.getString("maSupport"),
 	                result.getString("hoTen"),
-	                result.getString("diaChi"),
 	                result.getString("LopSinhHoat"),
 	                result.getString("soDienThoai"),
-	                result.getString("email")
+	                result.getString("email"),
+	                result.getString("HinhAnh") // Get the HinhAnh field
 	            ));
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    } finally {
-	        // Đảm bảo đóng kết nối
 	        try {
 	            if (stm != null) stm.close();
 	            if (result != null) result.close();
@@ -164,77 +171,111 @@ public class DAOcn{
 	}
 
 	public SupportClass checkSupport(String maSupport){
-		conn = DBConnect.getConnection();
-		//Doc du lieu tu Database luu vao List<Student>
-		//1. Khai bao List<student> de luu du lieu 
-		//List<UserJava> userName = new ArrayList<UserJava>();
-		String sql = "SELECT * FROM Support \n"
-				+ "where maSupport = ?\n";
-		//3.Ket noi, truy van --> luu du lieu ve List Student
-		try {
-			
-			
-			stm = conn.prepareStatement(sql);
-			stm.setString(1, maSupport);
-//			stm.setString(2, pass);
-			result = stm.executeQuery();
-				
-			while (result.next()) {
-				return new SupportClass(
-						result.getString("maSupport"),
-		                result.getString("hoTen"),
-		                result.getString("diaChi"),
-		                result.getString("LopSinhHoat"),
-		                result.getString("soDienThoai"),
-		                result.getString("email")
-		                );
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	    conn = DBConnect.getConnection();
+	    String sql = "SELECT * FROM Support WHERE maSupport = ?";
+	    try {
+	        stm = conn.prepareStatement(sql);
+	        stm.setString(1, maSupport);
+	        result = stm.executeQuery();
+
+	        if (result.next()) {
+	            return new SupportClass(
+	                result.getString("maSupport"),
+	                result.getString("hoTen"),
+	                result.getString("LopSinhHoat"),
+	                result.getString("soDienThoai"),
+	                result.getString("email"),
+	                result.getString("HinhAnh") // Get the HinhAnh field
+	            );
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
-	public void addSupport(String maSupport, String hoTen, String diaChi,String LopSinhHoat, String soDienThoai, String email){
-		conn = DBConnect.getConnection();
-		//Doc du lieu tu Database luu vao List<Student>
-		//1. Khai bao List<student> de luu du lieu 
-		//List<UserJava> userName = new ArrayList<UserJava>();
-		String sql = "insert into Support (maSupport, hoTen, diaChi, LopSinhHoat, SoDienThoai, Email)\n"
-				+ "values(?,?,?,?,?,?)\n";
-		//3.Ket noi, truy van --> luu du lieu ve List Student
-		try {
-			
-			stm = conn.prepareStatement(sql);
-			stm.setString(1, maSupport);
-			stm.setString(2, hoTen);
-			stm.setString(3, diaChi);
-			stm.setString(4, LopSinhHoat);
-			stm.setString(5, soDienThoai);
-			stm.setString(6, email);
-			stm.executeUpdate();
-				
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+	public void addSupport(String maSupport, String hoTen, String lopSinhHoat, String soDienThoai, String email, String hinhAnh) {
+	    conn = DBConnect.getConnection();
+	    String sql = "INSERT INTO Support (maSupport, hoTen, LopSinhHoat, SoDienThoai, Email, HinhAnh) VALUES (?, ?, ?, ?, ?, ?)";
+	    try {
+	        stm = conn.prepareStatement(sql);
+	        stm.setString(1, maSupport);
+	        stm.setString(2, hoTen);
+	        stm.setString(3, lopSinhHoat);
+	        stm.setString(4, soDienThoai);
+	        stm.setString(5, email);
+	        stm.setString(6, hinhAnh);
+	         // Set the image path in the database
+	        stm.executeUpdate();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
-	public void delete(String maSupport){
-		conn = DBConnect.getConnection();
-		//Doc du lieu tu Database luu vao List<Student>
-		//1. Khai bao List<student> de luu du lieu 
-		//List<UserJava> userName = new ArrayList<UserJava>();
-		String sql = "delete from Support\n"
-				+ "where maSupport = ?";
-		//3.Ket noi, truy van --> luu du lieu ve List Student
-		try {
-			stm = conn.prepareStatement(sql);
-			stm.setString(1, maSupport);
-			stm.executeUpdate();
-				
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+
+	public void editSupport(String maSupport, String hoTen, String lopSinhHoat, String soDienThoai, String email, String hinhAnh) {
+	    conn = DBConnect.getConnection();
+	    String sql = "UPDATE Support SET "
+	            + "hoTen = ?, "
+	            + "lopSinhHoat = ?, "
+	            + "soDienThoai = ?, "
+	            + "email = ?, "
+	            + "hinhAnh = ? "
+	            + "WHERE maSupport = ?;";
+
+	    try {
+	        stm = conn.prepareStatement(sql);
+	        stm.setString(1, hoTen);
+	        stm.setString(2, lopSinhHoat);
+	        stm.setString(3, soDienThoai);
+	        stm.setString(4, email);
+	        stm.setString(5, hinhAnh);
+	        stm.setString(6, maSupport);
+
+	        int rowsAffected = stm.executeUpdate();
+	        System.out.println("Rows updated: " + rowsAffected);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
+
+
+
+	public void delete(String maSupport) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        Statement statement = null;
+
+        try {
+            conn = DBConnect.getConnection();
+
+            // Tắt kiểm tra khóa ngoại
+            statement = conn.createStatement();
+            statement.executeUpdate("SET FOREIGN_KEY_CHECKS = 0");
+
+            // Xóa dữ liệu an toàn với PreparedStatement
+            String sqlDeleteSupport = "DELETE FROM support WHERE MaSupport = ?";
+            stmt = conn.prepareStatement(sqlDeleteSupport);
+            stmt.setString(1, maSupport);
+            stmt.executeUpdate();
+
+            // Bật kiểm tra khóa ngoại
+            statement.executeUpdate("SET FOREIGN_KEY_CHECKS = 1");
+
+            System.out.println("Xóa dữ liệu thành công!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (statement != null) statement.close();
+                if (conn != null) conn.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
 	public SupportClass getSupportByMaSupport(String maSupport) {
 	    String sql = "SELECT * FROM Support WHERE maSupport = ?";
 	    try {
@@ -247,10 +288,10 @@ public class DAOcn{
 	            return new SupportClass(
 	                result.getString("maSupport"),
 	                result.getString("hoTen"),
-	                result.getString("diaChi"),
 	                result.getString("lopSinhHoat"),
 	                result.getString("soDienThoai"),
-	                result.getString("email")
+	                result.getString("email"),
+	                result.getString("HinhAnh")
 	            );
 	        }
 	    } catch (Exception e) {
@@ -258,35 +299,24 @@ public class DAOcn{
 	    }
 	    return null;
 	}
-
-	public void editSupport(String maSupport, String hoTen, String diaChi,String LopSinhHoat, String soDienThoai, String email){
-		conn = DBConnect.getConnection();
-		//Doc du lieu tu Database luu vao List<Student>
-		//1. Khai bao List<student> de luu du lieu 
-		//List<UserJava> userName = new ArrayList<UserJava>();
-		String sql = "UPDATE Support\r\n"
-				+ "SET \r\n"
-				+ "    hoTen = ?, \r\n"
-				+ "    diaChi = ?, \r\n"
-				+ "    lopSinhHoat = ?, \r\n"
-				+ "    soDienThoai = ?, \r\n"
-				+ "    email = ?\r\n"
-				+ "WHERE maSupport = ?;\r\n";
-		//3.Ket noi, truy van --> luu du lieu ve List Student
-		try {		
-			stm = conn.prepareStatement(sql);
-			stm.setString(1, hoTen);
-			stm.setString(2, diaChi);
-			stm.setString(3, LopSinhHoat);
-			stm.setString(4, soDienThoai);
-			stm.setString(5, email);
-			stm.setString(6, maSupport);
-			stm.executeUpdate();
-				
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	 public void addSupports(int maLopHoc, String supportPerson) {
+	        String sql = "INSERT INTO supports (MaLopHoc, SupportPerson) VALUES (?, ?)";
+	        
+	        try (Connection conn = DBConnect.getConnection();
+	             PreparedStatement stmt = conn.prepareStatement(sql)) {
+	            
+	            stmt.setInt(1, maLopHoc);
+	            stmt.setString(2, supportPerson);
+	            
+	            int affectedRows = stmt.executeUpdate();
+	            if (affectedRows > 0) {
+	                System.out.println("Support added successfully.");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();  // Log the error in real projects
+	        }
+	    }
+	
 	public static void main(String[] args) {
 		DAOcn dao = new DAOcn();
 		List<SupportClass> list = dao.getAllSupportClass();

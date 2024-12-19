@@ -54,18 +54,64 @@ public class StudentDAO {
         }
     }
 
-    public boolean deleteStudent(String studentId) throws SQLException {
-        String sql = "DELETE FROM sinhvien WHERE MaSinhVien = ?";
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, studentId);
-            return pstmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            logSQLException("deleteStudent", e);
-            throw e;
+    public boolean deleteStudent(String maSinhVien) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = DBConnect.getConnection();
+
+            // Tắt auto-commit để đảm bảo tính toàn vẹn dữ liệu
+            conn.setAutoCommit(false);
+
+            // Xóa dữ liệu từ bảng diemthi
+            String sqlDeleteDiemThi = "DELETE FROM diemthi WHERE MaSinhVien = ?";
+            stmt = conn.prepareStatement(sqlDeleteDiemThi);
+            stmt.setString(1, maSinhVien);
+            stmt.executeUpdate();
+            stmt.close();
+
+            // Xóa dữ liệu từ bảng ketqua
+            String sqlDeleteKetQua = "DELETE FROM ketqua WHERE MaSinhVien = ?";
+            stmt = conn.prepareStatement(sqlDeleteKetQua);
+            stmt.setString(1, maSinhVien);
+            stmt.executeUpdate();
+            stmt.close();
+
+            // Xóa dữ liệu từ bảng sinhvien (bảng chính)
+            String sqlDeleteStudent = "DELETE FROM sinhvien WHERE MaSinhVien = ?";
+            stmt = conn.prepareStatement(sqlDeleteStudent);
+            stmt.setString(1, maSinhVien);
+            int rowsAffected = stmt.executeUpdate();
+
+            // Commit nếu mọi thứ thành công
+            conn.commit();
+
+            // Trả về true nếu dữ liệu đã được xóa
+            return rowsAffected > 0;
+
+        } catch (Exception e) {
+            try {
+                if (conn != null) conn.rollback(); // Rollback nếu có lỗi
+            } catch (Exception rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) {
+                    conn.setAutoCommit(true); // Bật lại auto-commit
+                    conn.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
-        }
+    }
+
+
 
     public Student getStudent(String studentId) throws SQLException {
         String sql = "SELECT * FROM sinhvien WHERE MaSinhVien = ?";

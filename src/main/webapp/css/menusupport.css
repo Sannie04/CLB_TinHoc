@@ -21,7 +21,7 @@
     margin: 0 auto;
     overflow: hidden;
     border-radius: 50%;
-    border: 3px solid #007bff;
+    border: 3px solid #008cba;
 }
 
 .image-container img {
@@ -31,7 +31,7 @@
 }
 
 .support-card h5 {
-    color: #007bff;
+    color: #008cba;
     margin-top: 15px;
     font-size: 1.1rem;
 }

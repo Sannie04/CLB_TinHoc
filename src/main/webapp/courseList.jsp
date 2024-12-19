@@ -33,6 +33,7 @@
                             <h3>${course.tenKhoaHoc}</h3>
                             <p>${empty course.moTa ? 'Mô tả chưa có.' : course.moTa}</p>
                             <a href="loadcourse?maKhoaHoc=${course.maKhoaHoc}" class="btn">Sửa</a>
+            
                              <ul>
                                 <c:forEach var="lop" items="${course.danhSachLop}">
                                     <li>

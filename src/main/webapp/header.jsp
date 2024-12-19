@@ -1,8 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+
 <header>
+
     <div class="container d-flex justify-content-between align-items-center py-3">
         <!-- Logo -->
         <div class="logo">
@@ -38,11 +40,11 @@
             <c:if test="${sessionScope.acc != null}">
                 <div class="user-info d-flex align-items-center gap-2">
                     <img src="./images/logo2.png" alt="User Avatar" class="img-fluid" style="max-height: 40px; border-radius: 50%;">
-                    <a href="logout" class="nav-link text-nowrap">Logout</a>
-                </div>
+                    <a href="logout" class="collapse navbar-collapse d-md-flex">Logout</a>
+                </div >
             </c:if>
             <c:if test="${sessionScope.acc == null}">
-                <a href="login.jsp" class="nav-link text-nowrap">Login</a>
+                <a href="login.jsp" class="collapse navbar-collapse d-md-flex">Login</a>
             </c:if>
         </div>
     </div>

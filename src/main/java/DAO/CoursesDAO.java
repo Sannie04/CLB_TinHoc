@@ -138,5 +138,69 @@ public class CoursesDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }    
+    }  
+    public int getLatestCourseId() {
+        int id = -1;
+        String sql = "SELECT MAX(MaKhoaHoc) AS LatestID FROM khoahoc";
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("LatestID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    public int addClass(String tenLopHoc, int maKhoaHoc) {
+        String sql = "INSERT INTO lophoc (tenLopHoc, maKhoaHoc) VALUES (?, ?)";
+        int maLopHoc = -1; // Default value if no error occurs
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, tenLopHoc);
+            stmt.setInt(2, maKhoaHoc);
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        maLopHoc = generatedKeys.getInt(1); // Get new class ID
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maLopHoc;
+    }
+
+    public void addStudentToCourse(int maLopHoc, String maSinhVien) {
+        String query = "INSERT INTO LopHoc_SinhVien (maLopHoc, maSinhVien) " +
+                       "SELECT l.maLopHoc, s.maSinhVien " +
+                       "FROM LopHoc l " +
+                       "JOIN SinhVien s ON s.maSinhVien = ? " +
+                       "WHERE l.maLopHoc = ?";
+        try (Connection conn = DBConnect.getConnection(); // Giả định bạn có phương thức Database.getConnection()
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            // Thiết lập tham số
+            ps.setString(1, maSinhVien); // Giá trị mã sinh viên
+            ps.setInt(2, maLopHoc);     // Giá trị mã lớp học
+
+            // Thực thi câu lệnh
+            int rowsInserted = ps.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Successfully added student to course.");
+            } else {
+                System.out.println("Failed to add student to course. Either student or course does not exist.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error adding student to course: " + e.getMessage());
+        }
+    }
+
+   
 }
+

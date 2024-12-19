@@ -1,33 +1,56 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Thêm Khóa Học</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm khóa học</title>
 </head>
 <body>
-    <h2>Thêm Khóa Học Mới</h2>
-    <form action="listCourse" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+    <h1>Thêm khóa học mới</h1>
+    <form action="listCourse" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="action" value="add">
-        
-        <label for="tenKhoaHoc">Tên Khóa Học:</label>
-        <input type="text" id="tenKhoaHoc" name="tenKhoaHoc" required><br>
 
-        <label for="moTa">Mô Tả:</label>
-        <textarea id="moTa" name="moTa" rows="4" required></textarea><br>
+        <label for="tenKhoaHoc">Tên khóa học:</label>
+        <input type="text" id="tenKhoaHoc" name="tenKhoaHoc" required><br><br>
 
-        <label for="ngayBatDau">Ngày Bắt Đầu:</label>
-        <input type="date" id="ngayBatDau" name="ngayBatDau" required><br>
+        <label for="moTa">Mô tả:</label>
+        <textarea id="moTa" name="moTa" required></textarea><br><br>
 
-        <label for="ngayKetThuc">Ngày Kết Thúc:</label>
-        <input type="date" id="ngayKetThuc" name="ngayKetThuc" required><br>
+        <label for="ngayBatDau">Ngày bắt đầu:</label>
+        <input type="date" id="ngayBatDau" name="ngayBatDau" required><br><br>
 
-        <label for="image">Ảnh Khóa Học:</label>
+        <label for="ngayKetThuc">Ngày kết thúc:</label>
+        <input type="date" id="ngayKetThuc" name="ngayKetThuc" required><br><br>
+
+        <label for="image">Ảnh:</label>
         <input type="file" id="image" name="image"><br><br>
 
-        <button type="submit">Thêm Khóa Học</button>
+        <!-- Danh sách sinh viên -->
+        <label for="selectedStudents">Chọn sinh viên:</label>
+        <select name="selectedStudents" id="selectedStudents" multiple size="5">
+            <c:forEach var="student" items="${students}">
+            
+                <option value="${student.maSinhVien}">${student.hoTen}</option>
+            </c:forEach>
+        </select><br><br>
+        
+        <!-- Danh sách người hỗ trợ -->
+        <label for="supportPerson">Chọn người hỗ trợ:</label>
+        <select name="supportPerson" id="supportPerson">
+            <c:forEach var="support" items="${supports}">
+                <option value="${support.maSupport}">${support.hoTen}</option>
+            </c:forEach>
+        </select><br><br>
+
+
+        <label for="tenLopHoc">Tên lớp học:</label>
+        <input type="text" id="tenLopHoc" name="tenLopHoc" required><br><br>
+
+        <button type="submit">Thêm khóa học</button>
     </form>
 </body>
 </html>

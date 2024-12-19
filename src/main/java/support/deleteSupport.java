@@ -8,32 +8,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DAO.DAOcn;
-import model.SupportClass;
-
-/**
- * Servlet implementation class deleteSupport
- */
 @WebServlet("/deleteSupport")
 public class deleteSupport extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    private static final long serialVersionUID = 1L;
+
     public deleteSupport() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
-		String maSupport = request.getParameter("maSupport");
-		DAOcn dao = new DAOcn();
-        dao.delete(maSupport);
-        response.sendRedirect("listSupport");
-	}
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        // Lấy tham số MaSupport từ request
+        String maSupport = request.getParameter("maSupport");
 
+        // Gọi DAO để xóa dữ liệu
+        DAOcn dao = new DAOcn();
+        dao.delete(maSupport);
+
+        // Chuyển hướng về trang danh sách sau khi xóa
+        response.sendRedirect("listSupport");
+    }
 }

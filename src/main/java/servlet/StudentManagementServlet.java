@@ -147,12 +147,18 @@ public class StudentManagementServlet extends HttpServlet {
     private void deleteStudent(HttpServletRequest request, HttpServletResponse response) 
             throws SQLException, IOException {
         String studentId = request.getParameter("maSinhVien");
+
+        // Call the DAO method to delete the student
         boolean success = studentDAO.deleteStudent(studentId);
+        
         if (success) {
+            // Return success message in JSON format
             response.getWriter().write("{\"success\":true,\"message\":\"Sinh viên đã được xóa\"}");
         } else {
+            // Return error message in case deletion fails
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("{\"error\":\"Không thể xóa sinh viên\"}");
         }
     }
+
 }

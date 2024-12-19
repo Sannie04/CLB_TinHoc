@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import DAO.DAOcn;
-import model.SupportClass;
 
 @WebServlet("/addSupport")
+@MultipartConfig
 public class AddSupportServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -23,68 +24,59 @@ public class AddSupportServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        // Kiểm tra xem yêu cầu có phải là multipart hay không
         if (!request.getContentType().startsWith("multipart/form-data")) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Form must have enctype=multipart/form-data.");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Form phải có enctype=multipart/form-data.");
             return;
         }
 
-        // Lấy dữ liệu từ form
+        // Lấy các tham số từ form
         String maSupport = request.getParameter("maSupport");
         String hoTen = request.getParameter("hoTen");
         String lopSinhHoat = request.getParameter("lopSinhHoat");
         String soDienThoai = request.getParameter("soDienThoai");
         String email = request.getParameter("email");
-        String hinhAnh = null; // Đường dẫn lưu ảnh
+        String hinhAnh = null;
 
-        // Xử lý file upload
-        Part hinhAnhPart = request.getPart("hinhAnh");  // Lấy phần ảnh từ form
+        // Xử lý file ảnh (nếu có)
+        Part hinhAnhPart = request.getPart("hinhAnh");
         if (hinhAnhPart != null && hinhAnhPart.getSize() > 0) {
             String fileName = getFileName(hinhAnhPart);
-            String uploadPath = "D:/NAM3/WEB/CLB_TinHoc/src/main/webapp/images";  // Đảm bảo thư mục này tồn tại
-
-            // Kiểm tra thư mục lưu trữ, nếu không tồn tại thì tạo mới
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                if (!uploadDir.mkdirs()) {
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Không thể tạo thư mục lưu ảnh.");
-                    return;
-                }
-            }
-
-            // Tạo tên file mới nếu file đã tồn tại
-            String fileNameBase = hoTen.trim().toLowerCase().replaceAll("[^a-zA-Z0-9]", "_");
-            if (fileNameBase.isEmpty()) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Tên file không hợp lệ.");
+            if (fileName == null || !fileName.toLowerCase().matches(".*\\.(jpg|png|jpeg|gif)$")) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Chỉ cho phép tải lên file ảnh (jpg, png, jpeg, gif).");
                 return;
             }
 
-            String uniqueFileName = fileNameBase;
-            File file = new File(uploadDir, fileName);
-            if (file.exists()) {
-                uniqueFileName = fileNameBase + "_" + UUID.randomUUID().toString() + ".jpg";
+            // Sử dụng thư mục ảnh đã tồn tại
+            String uploadPath = getServletContext().getRealPath("/images");
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Thư mục lưu ảnh không tồn tại.");
+                return;
             }
 
-            // Lưu file vào thư mục
-            hinhAnhPart.write(new File(uploadDir, uniqueFileName).getAbsolutePath());
-            hinhAnh = uniqueFileName;  // Cập nhật tên file vào cơ sở dữ liệu
+            // Tạo tên file ảnh duy nhất
+            String fileExtension = fileName.substring(fileName.lastIndexOf("."));
+            String fileNameBase = hoTen.trim().toLowerCase().replaceAll("[^a-zA-Z0-9]", "_");
+            String uniqueFileName = fileNameBase + "_" + UUID.randomUUID().toString() + fileExtension;
+
+            // Lưu ảnh vào thư mục
+            File fileToSave = new File(uploadDir, uniqueFileName);
+            hinhAnhPart.write(fileToSave.getAbsolutePath());
+            hinhAnh = uniqueFileName;
         }
 
-        // Kiểm tra các trường bắt buộc
-        if (maSupport == null || maSupport.isEmpty() || hoTen == null || hoTen.isEmpty() || lopSinhHoat == null || lopSinhHoat.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Thiếu các trường bắt buộc.");
-            return;
+        // Lưu thông tin vào database
+        try {
+            DAOcn dao = new DAOcn();
+            dao.addSupport(maSupport, hoTen, lopSinhHoat, soDienThoai, email, hinhAnh);
+            response.sendRedirect(request.getContextPath() + "/listSupport");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi thêm Support.");
         }
-
-        // Gọi DAO để thêm dữ liệu vào DB
-        DAOcn dao = new DAOcn();
-        dao.addSupport(new SupportClass(maSupport, hoTen, lopSinhHoat, soDienThoai, email, hinhAnh));
-
-        // Chuyển hướng về danh sách Support
-        response.sendRedirect(request.getContextPath() + "/listSupport");
     }
 
-    // Phương thức để lấy tên file từ part
+    // Phương thức lấy tên file từ phần Part
     private String getFileName(Part part) {
         String partHeader = part.getHeader("content-disposition");
         for (String content : partHeader.split(";")) {

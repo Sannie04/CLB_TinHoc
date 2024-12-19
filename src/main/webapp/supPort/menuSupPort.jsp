@@ -25,46 +25,46 @@
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addSupportModal">Thêm Support</button>
         </div>
 
-        <!-- Modal for adding new Support -->
-        <div class="modal fade" id="addSupportModal" tabindex="-1" aria-labelledby="addSupportModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addSupportModalLabel">Thêm Support</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       <!-- Modal for adding new Support -->
+<div class="modal fade" id="addSupportModal" tabindex="-1" aria-labelledby="addSupportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSupportModalLabel">Thêm Support</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="./addSupport" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="maSupport" class="form-label">Mã Support</label>
+                        <input type="text" class="form-control" id="maSupport" name="maSupport" required>
                     </div>
-                    <div class="modal-body">
-                        <form action="addSupport" method="POST">
-                            <div class="mb-3">
-                                <label for="hoTen" class="form-label">Họ Tên</label>
-                                <input type="text" class="form-control" id="hoTen" name="hoTen" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="maSupport" class="form-label">Mã Support</label>
-                                <input type="text" class="form-control" id="maSupport" name="maSupport" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="lopSinhHoat" class="form-label">Lớp</label>
-                                <input type="text" class="form-control" id="lopSinhHoat" name="lopSinhHoat" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="soDienThoai" class="form-label">Số Điện Thoại</label>
-                                <input type="text" class="form-control" id="soDienThoai" name="soDienThoai" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="hinhAnh" class="form-label">Hình ảnh (Optional)</label>
-                                <input type="file" class="form-control" id="hinhAnh" name="hinhAnh">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Thêm Support</button>
-                        </form>
+                    <div class="mb-3">
+                        <label for="hoTen" class="form-label">Họ Tên</label>
+                        <input type="text" class="form-control" id="hoTen" name="hoTen" required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="lopSinhHoat" class="form-label">Lớp</label>
+                        <input type="text" class="form-control" id="lopSinhHoat" name="lopSinhHoat" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="soDienThoai" class="form-label">Số Điện Thoại</label>
+                        <input type="text" class="form-control" id="soDienThoai" name="soDienThoai"required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email"required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hinhAnh" class="form-label">Hình ảnh </label>
+                        <input type="file" class="form-control" id="hinhAnh" name="hinhAnh"required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Thêm Support</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
         <div class="row mt-5">
             <% if (request.getAttribute("listP") != null) {

@@ -4,7 +4,7 @@
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Kết Quả Học Tập</title>
-    <link rel="stylesheet" href="css/class.css">
+    <link rel="stylesheet" href="css/ketqua.css">
     <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
@@ -15,6 +15,22 @@
     <c:if test="${not empty message}">
         <div style="color: green; font-weight: bold;">${message}</div>
     </c:if>
+<h2>Thêm Điểm Thi</h2>
+    <form action="ketqua" method="post">
+        <input type="hidden" name="action" value="add">
+        <input type="text" name="maSinhVien" placeholder="Mã Sinh Viên" required>
+
+        <!-- Dynamic dropdown for Course (maKhoaHoc) -->
+        <select name="maKhoaHoc" required>
+            <c:forEach var="khoaHoc" items="${khoaHocList}">
+                <option value="${khoaHoc.maKhoaHoc}">${khoaHoc.tenKhoaHoc}</option>
+            </c:forEach>
+        </select>
+
+        <input type="text" name="diem" placeholder="Điểm Thi" required>
+        <input type="number" name="lanThi" placeholder="Lần Thi" required>
+        <button type="submit">Thêm</button>
+    </form>
 
     <table>
         <thead>
@@ -60,22 +76,6 @@
     </table>
 
     <!-- Form Thêm Mới -->
-    <h2>Thêm Điểm Thi</h2>
-    <form action="ketqua" method="post">
-        <input type="hidden" name="action" value="add">
-        <input type="text" name="maSinhVien" placeholder="Mã Sinh Viên" required>
-
-        <!-- Dynamic dropdown for Course (maKhoaHoc) -->
-        <select name="maKhoaHoc" required>
-            <c:forEach var="khoaHoc" items="${khoaHocList}">
-                <option value="${khoaHoc.maKhoaHoc}">${khoaHoc.tenKhoaHoc}</option>
-            </c:forEach>
-        </select>
-
-        <input type="text" name="diem" placeholder="Điểm Thi" required>
-        <input type="number" name="lanThi" placeholder="Lần Thi" required>
-        <button type="submit">Thêm</button>
-    </form>
-
+    
 </body>
 </html>
