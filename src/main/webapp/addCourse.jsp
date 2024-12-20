@@ -7,9 +7,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/addcourse.css">
     <title>Thêm khóa học</title>
 </head>
 <body>
+<jsp:include page="header.jsp" />
     <h1>Thêm khóa học mới</h1>
     <form action="listCourse" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="action" value="add">

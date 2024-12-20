@@ -15,7 +15,7 @@
 
     <div class="container">
         <h1>Danh sách Khóa Học</h1>
-        <a href="addCourse.jsp" class="btn">Thêm Khóa Học</a>
+        <a href="addCoursePage" class="btn">Thêm Khóa Học</a>
 
         <div class="course-cards">
             <c:choose>

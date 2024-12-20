@@ -157,6 +157,13 @@ VALUES
 ('SV029', 9, 8.6, '2024-10-01'),
 ('SV030', 10, 9.1, '2024-10-01');
 
+CREATE TABLE student_lophoc (
+    MaSinhVien VARCHAR(20),
+    MaLopHoc INT,
+    PRIMARY KEY (MaSinhVien, MaLopHoc),
+    FOREIGN KEY (MaSinhVien) REFERENCES sinhvien(MaSinhVien),
+    FOREIGN KEY (MaLopHoc) REFERENCES lophoc(MaLopHoc)
+);
 CREATE TABLE support_lophoc (
     MaSupport VARCHAR(20),
     MaLopHoc INT,
