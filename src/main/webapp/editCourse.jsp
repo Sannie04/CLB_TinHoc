@@ -8,8 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Course</title>
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/addcourse.css">
 </head>
 <body>
+<jsp:include page="header.jsp" />
     <h2>Edit Course</h2>
 
     <form action="listCourse?action=edit" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
