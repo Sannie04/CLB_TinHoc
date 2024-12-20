@@ -52,7 +52,7 @@ public class DAOcn{
 	@SuppressWarnings("unchecked")
 	public UserJava login(String user, String pass) {
         conn = DBConnect.getConnection();  // Giả sử bạn có lớp DBConnect để kết nối DB
-        String sql = "SELECT * FROM user_login WHERE studentId = ?"; // Không cần so sánh mật khẩu ngay trong câu lệnh SQL
+        String sql = "SELECT * FROM user_login WHERE username = ?"; // Không cần so sánh mật khẩu ngay trong câu lệnh SQL
 
         try {
             stm = conn.prepareStatement(sql);

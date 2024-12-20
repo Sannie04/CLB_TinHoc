@@ -143,7 +143,7 @@
 				</c:if>
                 
                     <label >Tên tài khoản</label>
-                    <input type="text" id="studentId" name="studentId"  placeholder="Nhập tài khoản" required>
+                    <input type="text" id="name" name="name"  placeholder="Nhập tài khoản" required>
                 </div>
 
                 <div class="form-group">

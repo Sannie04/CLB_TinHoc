@@ -39,7 +39,7 @@ public class loginServ<DAO> extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    response.setContentType("text/html;charset=UTF-8");
-	    String username = request.getParameter("studentId");
+	    String username = request.getParameter("name");
 	    String password = request.getParameter("password");
 	    System.out.println("Received studentId: " + username);
 	    System.out.println("Received password: " + password);
