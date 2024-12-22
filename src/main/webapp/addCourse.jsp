@@ -34,22 +34,6 @@
         <label for="image">Ảnh:</label>
         <input type="file" id="image" name="image"><br><br>
 
-        <!-- Danh sách sinh viên -->
-        <label for="selectedStudents">Chọn sinh viên:</label>
-        <select name="selectedStudents" id="selectedStudents" multiple size="5">
-            <c:forEach var="student" items="${students}">
-            
-                <option value="${student.maSinhVien}">${student.hoTen}</option>
-            </c:forEach>
-        </select><br><br>
-        
-        <!-- Danh sách người hỗ trợ -->
-        <label for="supportPerson">Chọn người hỗ trợ:</label>
-        <select name="supportPerson" id="supportPerson">
-            <c:forEach var="support" items="${supports}">
-                <option value="${support.maSupport}">${support.hoTen}</option>
-            </c:forEach>
-        </select><br><br>
 
 
         <label for="tenLopHoc">Tên lớp học:</label>

@@ -40,6 +40,7 @@
             <c:if test="${sessionScope.acc != null}">
                 <div class="user-info d-flex align-items-center gap-2">
                     <img src="./images/logo2.png" alt="User Avatar" class="img-fluid" style="max-height: 40px; border-radius: 50%;">
+                    <span class="image-containe">${sessionScope.acc.username}</span>
                     <a href="logout" class="collapse navbar-collapse d-md-flex">Logout</a>
                 </div >
             </c:if>

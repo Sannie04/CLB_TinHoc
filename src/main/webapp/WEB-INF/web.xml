@@ -10,7 +10,18 @@
 	    <servlet-class>support.ListSupportServlet</servlet-class>  <!-- Corrected path -->
 	</servlet>
 
-    
+    <error-page>
+	    <error-code>404</error-code>
+	    <location>/er404.jsp</location>
+	  </error-page>
+	<error-page>
+	    <error-code>450</error-code>
+	    <location>/er450.jsp</location>
+	  </error-page>
+	  <error-page>
+	    <error-code>500</error-code>
+	    <location>/er500.jsp</location>
+	  </error-page>
     <servlet>
         <servlet-name>courseServlet</servlet-name>
         <servlet-class>servlet.CourseServlet</servlet-class>

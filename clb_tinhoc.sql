@@ -164,6 +164,38 @@ CREATE TABLE student_lophoc (
     FOREIGN KEY (MaSinhVien) REFERENCES sinhvien(MaSinhVien),
     FOREIGN KEY (MaLopHoc) REFERENCES lophoc(MaLopHoc)
 );
+INSERT INTO student_lophoc (MaSinhVien, MaLopHoc) 
+VALUES 
+('SV001', 1),
+('SV002', 2),
+('SV003', 3),
+('SV004', 4),
+('SV005', 5),
+('SV006', 6),
+('SV007', 7),
+('SV008', 8),
+('SV009', 9),
+('SV010', 10),
+('SV011', 1),
+('SV012', 2),
+('SV013', 3),
+('SV014', 4),
+('SV015', 5),
+('SV016', 6),
+('SV017', 7),
+('SV018', 8),
+('SV019', 9),
+('SV020', 10),
+('SV021', 1),
+('SV022', 2),
+('SV023', 3),
+('SV024', 4),
+('SV025', 5),
+('SV026', 6),
+('SV027', 7),
+('SV028', 8),
+('SV029', 9),
+('SV030', 10);
 CREATE TABLE support_lophoc (
     MaSupport VARCHAR(20),
     MaLopHoc INT,

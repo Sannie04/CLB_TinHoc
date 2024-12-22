@@ -177,11 +177,9 @@ public class CoursesDAO {
     }
 
     public void addStudentToCourse(int maLopHoc, String maSinhVien) {
-        String query = "INSERT INTO LopHoc_SinhVien (maLopHoc, maSinhVien) " +
-                       "SELECT l.maLopHoc, s.maSinhVien " +
-                       "FROM LopHoc l " +
-                       "JOIN SinhVien s ON s.maSinhVien = ? " +
-                       "WHERE l.maLopHoc = ?";
+        String query = "INSERT INTO student_lophoc (MaSinhVien, MaLopHoc)\r\n"
+        				+ "VALUES (?, ?)";
+
         try (Connection conn = DBConnect.getConnection(); // Giả định bạn có phương thức Database.getConnection()
              PreparedStatement ps = conn.prepareStatement(query)) {
 
@@ -201,6 +199,27 @@ public class CoursesDAO {
         }
     }
 
-   
+    public void addSupportToCourse(int maLopHoc, String maSupport) {
+        String query = "INSERT INTO support_lophoc (MaSupport, MaLopHoc)\r\n"
+						+ "VALUES (?, ?)";
+        try (Connection conn = DBConnect.getConnection(); // Kết nối đến cơ sở dữ liệu
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            // Thiết lập tham số
+            ps.setString(1, maSupport); // Giá trị mã người hỗ trợ
+            ps.setInt(2, maLopHoc);     // Giá trị mã lớp học
+
+            // Thực thi câu lệnh
+            int rowsInserted = ps.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Successfully added support person to course.");
+            } else {
+                System.out.println("Failed to add support person to course. Either support or course does not exist.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error adding support person to course: " + e.getMessage());
+        }
+    }
+
 }
 

@@ -35,10 +35,10 @@ public class ClassnameDAO {
 
     // Lấy danh sách sinh viên theo mã lớp học
     private List<Student> getStudentsByLop(int maLopHoc) throws SQLException {
-        String query = "SELECT * \r\n"
+        String query = "SELECT s.MaSinhVien, s.HoTen, s.LopSinhHoat, s.Email, s.SoDienThoai, s.NgayThamGia\r\n"
         		+ "FROM sinhvien s \r\n"
-        		+ "JOIN ketqua k ON s.MaSinhVien = k.MaSinhVien \r\n"
-        		+ "WHERE k.MaLopHoc = ?";
+        		+ "JOIN student_lophoc sl ON s.MaSinhVien = sl.MaSinhVien\r\n"
+        		+ "WHERE sl.MaLopHoc = ?";
         List<Student> students = new ArrayList<>();
         
         try (Connection conn = DBConnect.getConnection();

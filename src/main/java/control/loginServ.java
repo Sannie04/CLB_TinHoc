@@ -52,7 +52,7 @@ public class loginServ<DAO> extends HttpServlet {
 	    } else {
 	    	HttpSession session = request.getSession();
 	    	session.setAttribute("acc", users);
-	    	session.setMaxInactiveInterval(1000);
+	    	session.setMaxInactiveInterval(10000);
 	        //request.getRequestDispatcher("./Home.jsp").forward(request, response);
 	        response.sendRedirect("Home.jsp");
 	    }

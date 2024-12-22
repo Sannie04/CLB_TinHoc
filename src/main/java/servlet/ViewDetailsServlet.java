@@ -17,12 +17,14 @@ import DAO.ClassnameDAO;
 import model.ClassDetails;
 import model.Student;
 import model.SupportClass;
-
+import DAO.StudentDAO;
+import DAO.DAOcn;
 @WebServlet("/viewDetails")
 public class ViewDetailsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final Logger logger = Logger.getLogger(ViewDetailsServlet.class.getName());
-
+    private StudentDAO studentDAO = new StudentDAO();
+    private DAOcn supportDAO = new DAOcn();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -55,16 +57,24 @@ public class ViewDetailsServlet extends HttpServlet {
             }
 
             // Lấy danh sách sinh viên và hỗ trợ từ DTO
-            List<Student> students = details.getStudents();
-            List<SupportClass> supports = details.getSupports();
+            List<Student> studentsdetails = details.getStudents();
+            List<SupportClass> supportsdetails = details.getSupports();
 
             // Đưa thông tin lớp học vào request để truyền sang JSP
             request.setAttribute("lop", details); // Corrected this line
 
             // Đưa danh sách sinh viên và hỗ trợ vào request
+            request.setAttribute("studentsdetails", studentsdetails);
+            request.setAttribute("supportsdetails", supportsdetails);
+            
+            List<Student> students = studentDAO.getAllStudents();
+
+            // Lấy danh sách người hỗ trợ từ cơ sở dữ liệu
+            List<SupportClass> supports = supportDAO.getAllSupportClass();
+
+            // Gán danh sách vào request attribute
             request.setAttribute("students", students);
             request.setAttribute("supports", supports);
-
             // Chuyển hướng tới JSP
             RequestDispatcher dispatcher = request.getRequestDispatcher("viewDetails.jsp");
             dispatcher.forward(request, response);

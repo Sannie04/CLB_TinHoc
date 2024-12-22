@@ -54,7 +54,10 @@ public class editSupport extends HttpServlet {
         String soDienThoai = request.getParameter("soDienThoai");
         String email = request.getParameter("email");
         String hinhAnh = null; // Đường dẫn lưu ảnh
-
+        SupportClass support = new DAOcn().getSupportByMaSupport(maSupport);
+        if (support != null && support.getHinhAnh() != null && !support.getHinhAnh().isEmpty()) {
+            hinhAnh = support.getHinhAnh();  // Giữ lại ảnh cũ nếu không có ảnh mới
+        }
         String uploadPath = "D:/NAM3/WEB/CLB_TinHoc/src/main/webapp/images";
 
         File uploadDir = new File(uploadPath);

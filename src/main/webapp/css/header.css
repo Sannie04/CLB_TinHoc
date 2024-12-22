@@ -33,34 +33,24 @@ header .menu {
     justify-content: space-evenly;
 }
 
-header .menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 30px;
-}
-
+header .menu a,
 header a {
     color: white;
     text-decoration: none;
     font-size: 30px;
 }
 
-header .menu a:hover {
+header .menu a:hover,
+header .logout-link a:hover {
     color: #ffd700;
 }
 
 /* User Info Section */
-header .user-info-container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 16px;
-}
-
+header .user-info-container,
 header .user-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 header .user-info img {
@@ -70,25 +60,41 @@ header .user-info img {
 }
 
 header .logout-link a {
-   display: flex;
+    display: flex;
     align-items: center;
     gap: 20px;
     font-size: 40px;
 }
 
-header .logout-link a:hover {
-    color: #ffd700;
+/* Image Container */
+.image-container {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+.image-container img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.image-caption {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
+    font-family: Arial, sans-serif;
 }
 
 /* Responsive Header */
 @media (max-width: 1024px) {
     header .container {
         flex-direction: column;
-        align-items: center;
         height: auto;
     }
 
-    header .menu {
+    header .menu,
+    header .user-info-container {
         flex-direction: column;
         gap: 10px;
         text-align: center;
@@ -96,11 +102,6 @@ header .logout-link a:hover {
 
     header .menu a {
         font-size: 25px;
-    }
-
-    header .user-info-container {
-        flex-direction: column;
-        gap: 10px;
     }
 
     header .user-info img {
@@ -111,26 +112,8 @@ header .logout-link a:hover {
 
 /* Mobile View (max-width: 768px) */
 @media (max-width: 768px) {
-    header .container {
-        flex-direction: column;
-        align-items: center;
-        height: auto;
-    }
-
-    header .menu {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
-
     header .menu a {
         font-size: 22px;
-    }
-
-    header .user-info-container {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
     }
 
     header .user-info img {
@@ -147,18 +130,8 @@ header .logout-link a:hover {
         font-size: 36px;
     }
 }
-@media (max-width: 768px) {
-        .nav-link {
-            font-size: 14px; /* Reduce font size on smaller screens */
-        }
-    }
 
-    @media (max-width: 480px) {
-        .nav-link {
-            font-size: 12px; /* Reduce font size even more on extra small screens */
-        }
-    }
-/* Mobile View (max-width: 480px) */
+/* Extra Small Screens (max-width: 480px) */
 @media (max-width: 480px) {
     header .container {
         padding: 10px 0;
