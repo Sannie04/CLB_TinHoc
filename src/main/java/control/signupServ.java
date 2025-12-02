@@ -1,0 +1,88 @@
+package control;
+
+import java.io.IOException;
+
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import DAO.DAOcn;
+import model.BCrypt;
+import model.UserJava;
+
+/**
+ * Servlet implementation class signupServ
+ */
+@WebServlet("/signupServ")
+public class signupServ extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    response.setContentType("text/html;charset=UTF-8");
+
+	    String studentId = request.getParameter("studentId");
+	    String username = request.getParameter("name");
+	    String email = request.getParameter("email");
+	    String so_dien_thoai = request.getParameter("phone");
+	    String ngay_sinh = request.getParameter("dateOfBirth");
+	    String password = request.getParameter("password");
+
+	    // ==== VALIDATION ==== //
+	    String studentIdRegex = "^[0-9]{10}$";
+	    if (!studentId.matches(studentIdRegex)) {
+	        request.setAttribute("mess1", "Mã sinh viên không đúng");
+	        request.getRequestDispatcher("./register.jsp").forward(request, response);
+	        return;
+	    }
+	    // Phone must be 10 digits
+	    String phoneRegex = "^0[0-9]{9}$";
+	    if (!so_dien_thoai.matches(phoneRegex)) {
+	        request.setAttribute("mess1", "Số điện thoại chưa đủ ");
+	        request.getRequestDispatcher("./register.jsp").forward(request, response);
+	        return;
+	    }
+
+	    // Email format check
+	    String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+	    if (!email.matches(emailRegex)) {
+	        request.setAttribute("mess1", "Email không đúng định dạng!");
+	        request.getRequestDispatcher("./register.jsp").forward(request, response);
+	        return;
+	    }
+
+	    // Password >= 8 characters
+	    if (password.length() < 8) {
+	        request.setAttribute("mess1", "Mật khẩu phải có ít nhất 8 ký tự!");
+	        request.getRequestDispatcher("./register.jsp").forward(request, response);
+	        return;
+	    }
+
+	    // ==== Encrypt password ====
+	    String hasPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
+
+	    DAOcn dao = new DAOcn();
+	    UserJava a = dao.checkUser(studentId);
+
+	    if (a == null) {
+	        dao.signup(studentId, username, email, so_dien_thoai, ngay_sinh, hasPassword);
+	        request.getRequestDispatcher("login.jsp").forward(request, response);
+	    } else {
+	        request.setAttribute("mess1", "Mã sinh viên đã tồn tại!");
+	        request.getRequestDispatcher("./register.jsp").forward(request, response);
+	    }
+	}
+
+
+}

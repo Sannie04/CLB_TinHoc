@@ -1,0 +1,160 @@
+/* General Header Styling */
+header {
+    background-color: #28a745;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-radius: 10px;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 80px;
+}
+
+/* Logo Styling */
+header .logo img {
+    height: 80px;
+    width: auto;
+    border-radius: 8px;
+}
+
+/* Navigation Menu */
+header .menu {
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly;
+}
+
+header .menu a,
+header a {
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+header .menu a:hover,
+header .logout-link a:hover {
+    color: #ffd700;
+}
+
+/* User Info Section */
+header .user-info-container,
+header .user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+header .user-info img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+header .logout-link a {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 40px;
+}
+
+/* Image Container */
+.image-container {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+.image-container img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.image-caption {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
+    font-family: Arial, sans-serif;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+    header .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    header .menu,
+    header .user-info-container {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    header .menu a {
+        font-size: 25px;
+    }
+
+    header .user-info img {
+        height: 35px;
+        width: 35px;
+    }
+}
+
+/* Mobile View (max-width: 768px) */
+@media (max-width: 768px) {
+    header .menu a {
+        font-size: 22px;
+    }
+
+    header .user-info img {
+        height: 30px;
+        width: 30px;
+    }
+
+    header .logout-link a {
+        font-size: 35px;
+        gap: 10px;
+    }
+
+    header .logout-link a:hover {
+        font-size: 36px;
+    }
+}
+
+/* Extra Small Screens (max-width: 480px) */
+@media (max-width: 480px) {
+    header .container {
+        padding: 10px 0;
+    }
+
+    header .logo img {
+        height: 60px;
+    }
+
+    header .menu a {
+        font-size: 20px;
+    }
+
+    header .user-info img {
+        height: 25px;
+        width: 25px;
+    }
+
+    header .logout-link a {
+        font-size: 30px;
+    }
+
+    header .logout-link a:hover {
+        font-size: 32px;
+    }
+}

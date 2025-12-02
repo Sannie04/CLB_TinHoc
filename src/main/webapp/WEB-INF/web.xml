@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+	<display-name>Home</display-name>
+	
+	<servlet>
+	    <servlet-name>ListSupportServlet</servlet-name>
+	    <servlet-class>support.ListSupportServlet</servlet-class>  <!-- Corrected path -->
+	</servlet>
+
+    <error-page>
+	    <error-code>404</error-code>
+	    <location>/er404.jsp</location>
+	  </error-page>
+	<error-page>
+	    <error-code>450</error-code>
+	    <location>/er450.jsp</location>
+	  </error-page>
+	  <error-page>
+	    <error-code>500</error-code>
+	    <location>/er500.jsp</location>
+	  </error-page>
+    <servlet>
+        <servlet-name>courseServlet</servlet-name>
+        <servlet-class>servlet.CourseServlet</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>StudentManagementServlet</servlet-name>
+        <servlet-class>servlet.StudentManagementServlet</servlet-class>
+    </servlet>
+  <servlet>
+    <servlet-name>ViewDetailsServlet</servlet-name>
+    <servlet-class>servlet.ViewDetailsServlet</servlet-class>
+</servlet>
+<servlet>
+    <servlet-name>ResultServlet</servlet-name>
+    <servlet-class>servlet.ResultServlet</servlet-class>
+</servlet>
+<servlet>
+    <servlet-name>EditScoresServlet</servlet-name>
+    <servlet-class>servlet.EditScoresServlet</servlet-class>
+</servlet>
+      <servlet>
+        <servlet-name>AddSupportServlet</servlet-name>
+        <servlet-class>support.AddSupportServlet</servlet-class>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size> <!-- 10MB -->
+            <max-request-size>20971520</max-request-size> <!-- 20MB -->
+            <file-size-threshold>1048576</file-size-threshold> <!-- 1MB -->
+        </multipart-config>
+    </servlet>
+
+	<welcome-file-list>
+   	 <welcome-file>Home.jsp</welcome-file>
+ 	</welcome-file-list>
+	
+    
+    <context-param>
+        <param-name>maxConnections</param-name>
+        <param-value>10</param-value>
+    </context-param>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+	
+	
+</web-app>
